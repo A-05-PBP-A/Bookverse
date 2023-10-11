@@ -14,35 +14,27 @@ Dalam kebisingan dunia digital, BookVerse hadir sebagai oase literasi yang mempe
 ## **Manfaat BookVerse :**
 BookVerse memberikan manfaat yang tak terbatas bagi pengguna. Pertama, BookVerse menginspirasi minat membaca dan mempromosikan kesadaran akan pentingnya literasi dalam masyarakat. Pengguna dapat menggali ide-ide dalam buku bersama-sama, berbagi pandangan mereka, dan memperluas wawasan mereka dengan berinteraksi dengan pembaca dari berbagai budaya. Selain itu, BookVerse memungkinkan pengguna untuk berpartisipasi dalam misi literasi global, memberikan kontribusi positif terhadap upaya meningkatkan literasi di komunitas mereka. BookVerse menjadi jendela yang menghubungkan, menginspirasi, dan memungkinkan pembaca untuk mengeksplorasi dunia lebih jauh melalui kekuatan kata-kata.
 
-## **Fitur Utama :**
-1. **Daftar Anggota**
-Dengan fitur ini, pengguna dapat mendaftar sebagai anggota BookVerse dengan cepat dan mudah. Mereka dapat membuat profil pribadi dan berbagi minat literasi dengan pengguna lain.
+## **Modul dan Pengembang :**
+1. **Admin** - [Irvan Rizqy Kusuma](https://github.com/IrvanRizqy)
+Modul ini bertanggung jawab untuk semua tugas admin,, seperti menambah katalog buku, menghapus review, dll.
 
-2. **Pinjam Buku**
-Pengguna memiliki akses ke katalog buku yang luas dan dapat dengan mudah meminjam buku yang mereka minati. Fitur "Pinjam Buku" memudahkan pengguna dalam melacak peminjaman mereka dan membuat proses peminjaman buku menjadi lebih efisien.
+2. **Pinjam dan Kembalikan Buku** - [Lucinda Laurent](https://github.com/lucindalaurent)
+Modul ini memungkinkan pengguna untuk melakukan peminjaman dan pengembalian buku dalam perpustakaan.
 
-3. **Kembalikan Buku**
-Dengan fitur ini, pengguna dapat dengan cepat menginformasikan aplikasi ketika mereka telah mengembalikan buku yang dipinjam. Ini membantu dalam menjaga catatan peminjaman yang akurat dan menghindari masalah keterlambatan pengembalian buku.
+3. **Profil Pengguna** - [Ryandhika Al Afzal](https://github.com/RyanAfzal)
+Modul ini berfokus pada pengelolaan profil pengguna, seperti history membaca, buku favorit, history review, dll.
 
-4. **Review dan Rekomendasi Pengguna**
-Pengguna dapat berbagi pendapat mereka tentang buku yang telah mereka baca dengan menulis review. Dengan adanya review, pengguna juga akan tau bagaimana isi dari buku yang ingin dibacanya berdasarkan pendapat dari pengguna lain.
+4. **Profil Buku dan Review pengguna** - [Fadrian Yhoga Pratama](https://github.com/yhogaa)
+Modul ini mengelola informasi buku dan ulasan yang diberikan oleh pengguna terhadap buku-buku tertentu.
 
-5. **Favorite Book**
-Pengguna dapat menandai buku-buku favorit mereka sehingga tidak usah kebingungan ketika ingin membaca atau meminjamnya dilain waktu.
-
-## **Pembagian Modul :**
-- Lucinda Laurent (Favorite Book)
-- Fadrian Yhoga Pratama (Review dan Rekomendasi Pengguna)
-- Alyanda Astri (Kembalikan Buku)
-- Irvan Rizqy Kusuma (Daftar Anggota)
-- Ryandhika Al Afzal (Pinjam Buku)
+5. **Daftar Buku** - [Alyanda Astri](https://github.com/astrialyanda)
+Modul ini untuk menampilkan daftar buku yang tersedia dalam perpustakaan, para pengguna yang belum login juga bisa melihat daftar buku yang tersedia.
 
 ## **_Role User_ :**
 ### **Admin**
 Admin memiliki akses penuh dan kontrol atas seluruh aplikasi "BookVerse". Ini mencakup hak-hak berikut:
 - **Manajemen Buku**: Admin dapat menambahkan, mengedit, atau menghapus buku dari katalog. Ini mencakup mengunggah informasi buku baru, mengupdate detail buku yang ada, dan menghapus buku yang sudah tidak relevan.
 - **Manajemen Anggota**: Admin dapat mengelola daftar anggota, termasuk menambahkan anggota baru, menghapus anggota, dan mengedit profil anggota.
-- **Manajemen Peminjaman**: Admin dapat mengawasi dan mengelola peminjaman buku. Ini mencakup menyetujui permohonan peminjaman, mencatat pengembalian buku, dan mengelola status peminjaman.
 - **Manajemen Review**: Admin dapat menghapus review dari pengguna.
 
 ### **User**
