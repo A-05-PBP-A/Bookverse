@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+{% endblock meta %}
+
+{% block content %}
+
+<style>
+    .user-img {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    #photo {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+    }
+
+    #file {
+        display: none;
+    }
+
+    #uploadbtn {
+        height: 30px;
+        width: 30px;
+        padding: 6px;
+        border-radius: 50%;
+        cursor: pointer;
+        color: white;
+        background-color: rgb(173, 172, 172, 0.801);
+        box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.644);
+        position: relative;
+        top: -20px;
+        background: white;
+        color: rgb(173, 172, 172, 0.801);
+        border: 1px solid rgb(173, 172, 172, 0.801);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 auto;
+    }
+
+    .content ul {
+        text-align: left;
+        padding: 0;
+    }
+
+    .content li {
+        margin: 5px 0; 
+    }
+</style>
+
+<div class="user-img">
+    <img src="{% if user_uploaded_image %}{{ user_uploaded_image }}{% else %}https://github.com/A-05-PBP-A/Bookverse/assets/137851158/862f73b2-2a11-42a9-b155-6528cc280cd4{% endif %}" id="photo">
+    <label for="file" id="uploadbtn"><i class='fas fa-camera'></i></label>
+    <input type="file" id="file">
+    <br>
+    <h3>{{ name }}</h3>
+</div>
+
+<div class="content">
+    <details>
+        <summary>Books history</summary>
+        <ul>
+            {% for book in user_instance.bookHistory.all %}
+                <li>{{ book.title }}</li>
+            {% empty %}
+                <h7>No books in history.</h7>
+            {% endfor %}
+        </ul>
+    </details>
+
+    <details>
+        <summary>Favorite Books</summary>
+        <ul>
+            {% for book in user_instance.favoriteBooks.all %}
+                <li>{{ book.title }}</li>
+            {% empty %}
+                <h7>No favorite book.</h7>
+            {% endfor %}
+        </ul>
+    </details>
+
+    <details>
+        <summary>Review history</summary>
+        <ul>
+            {% for book in user_instance.reviewsHistory.all %}
+                <li>{{ book.title }}</li>
+            {% empty %}
+                <h7>No review.</h7>
+            {% endfor %}
+        </ul>
+    </details>
+</div>
+
+
+<script>
+    const imgDiv = document.querySelector('.user-img');
+    const img = document.querySelector('#photo');
+    const file = document.querySelector('#file');
+    const uploadbtn = document.querySelector('#uploadbtn');
+
+    file.addEventListener('change', function () {
+        const chosenFile = this.files[0];
+        if (chosenFile) {
+            const reader = new FileReader();
+
+            reader.addEventListener('load', function () {
+                img.setAttribute('src', reader.result);
+            });
+            reader.readAsDataURL(chosenFile);
+        }
+    });
+</script>
+
+{% endblock content %}
