@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Register</title>
+
+{% endblock meta %}
+
+{% block content %}
+{% load static %}
+<div style="background-color: #b31cff;">
+    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="card" style="width: 50rem;">
+            <div class="card-body">
+                <div class="login">
+
+                    <h1 class="card-title">Bookverse</h1>
+                    <h3 class="fw-normal mb-3 pb-3">Register</h3>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <table>
+                            {{ form.as_p }}
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <button class="btn btn-primary" type="submit">Register</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+
+                    <!-- {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %} -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
