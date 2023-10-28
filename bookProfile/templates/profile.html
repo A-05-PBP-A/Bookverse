@@ -7,13 +7,12 @@
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>{{book.title}}</title>
-    <!-- Tambahkan CSS Bootstrap -->
     <style>
         .book-image {
             width: 100%;
             height: auto;
-            object-fit: contain; /* Menjaga aspek rasio gambar */
-            margin: 10px; /* Tambahkan margin sekitar gambar */
+            object-fit: contain; 
+            margin: 10px; 
         }
 
         .rating {
@@ -37,11 +36,10 @@
         @media (max-width: 834px) {
             #bookScroll {
                 overflow-x: auto;
-                white-space: nowrap; /* agar elemen tidak pindah ke baris baru */
+                white-space: nowrap;
             }
 
-            /* Sembunyikan tombol-tombol pada perangkat seluler */
-            button {
+            button.arrow-btn {
                 display: none;
             }
         }
@@ -57,7 +55,7 @@
         }
 
         .arrow-btn:hover {
-            background-color: rgba(128, 128, 128, 0.2); /* abu-abu dengan opacity 50% */
+            background-color: rgba(128, 128, 128, 0.2); 
         }
 
         .star {
@@ -72,10 +70,10 @@
         .star.active::before {
             content: '★';
             color: orange;
-        }
+        }           
     </style>
 </head>
-<body>
+<body>   
     <div class="container mt-5">
         <!-- Card -->
         <div class="row">
@@ -226,8 +224,8 @@
     }
 
     async function getReview() {
-        const bookId = "{{ book.id }}";  // get the book id from the Django context
-        return fetch(`/get_review_json/${bookId}`).then((res) => res.json())  // add the book id to the URL
+        const bookId = "{{ book.id }}"; 
+        return fetch(`/get_review_json/${bookId}`).then((res) => res.json())  
     }
 
     async function refreshReviews() {
