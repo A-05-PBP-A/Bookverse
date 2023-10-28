@@ -8,11 +8,11 @@ from django.shortcuts import get_object_or_404
 from random import sample
 
 # Create your views here.
-def show_review(request):
-    reviews = Review.objects.all()
+def show_review(request, book_id):
+    book = get_object_or_404(Book, pk=book_id)
     books = Book.objects.all()
-    random_books = sample(list(books), 7)
-    book = get_object_or_404(Book, pk=1)
+    random_books = sample(list(books), 20)
+    reviews = Review.objects.filter(book=book)
     context = {
         'reviews' : reviews,
         'books' : books,
@@ -26,24 +26,41 @@ def get_books(request):
     data = Book.objects.all()
     return HttpResponse(serializers.serialize("json",data), content_type="application/json")
 
-def get_review_json(request):
-    review = Review.objects.all()
-    return HttpResponse(serializers.serialize('json', review))
+def get_review_json(request, book_id):
+    book = get_object_or_404(Book, pk=book_id) 
+    reviews = Review.objects.filter(book=book) 
+    return HttpResponse(serializers.serialize('json', reviews))
 
 @csrf_exempt
 def add_review_ajax(request):
     if request.method == 'POST':
         rating = request.POST.get("rating")
         review = request.POST.get("review")
-        # user = request.user
+        book_id = request.POST.get("book_id")  
 
-        new_review = Review(rating=rating, review=review)
+        book = get_object_or_404(Book, pk=book_id)  
+
+        new_review = Review(rating=rating, review=review, book=book) 
         new_review.save()
 
         return HttpResponse(b"CREATED", status=201)
 
     return HttpResponseNotFound()
 
-def show_json(request):
+def show_review_json(request):
     data = Review.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+def show_review_json_by_id(request, id):
+    data = Review.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+def show_review_xml(request):
+    data = Review.objects.all()
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+def show_review_xml_by_id(request, id):
+    data = Review.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+
