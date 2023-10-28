@@ -1,22 +1,30 @@
-from django.shortcuts import render
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages  
 from django.contrib.auth import authenticate, login, logout
+import datetime
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-def show_main(request):
-    return render(request, "search-result.html")
+@login_required(login_url='/login')
+def show_landing(request):
+    if 'last_login' not in request.COOKIES.keys():
+        return redirect('authentication:login_user')
+    context = {'name': request.user.username,
+            'last_login': request.COOKIES['last_login'],
+            }
+    return render(request, "temp_landing.html", context)
 
 def register(request):
     form = UserCreationForm()
-
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Your account has been successfully created!')
-            return redirect('main:login')
+            return redirect('authentication:login_user')
     context = {'form':form}
     return render(request, 'register.html', context)
 
@@ -27,7 +35,9 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('main:show_main')
+            response = HttpResponseRedirect(reverse("authentication:show_landing")) 
+            response.set_cookie('last_login', str(datetime.datetime.now()))
+            return response
         else:
             messages.info(request, 'Sorry, incorrect username or password. Please try again.')
     context = {}
@@ -35,4 +45,6 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return redirect('main:login')
+    response = HttpResponseRedirect(reverse('authentication:login_user'))
+    response.delete_cookie('last_login')
+    return response

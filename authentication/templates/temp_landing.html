@@ -1,0 +1,8 @@
+
+<h3><p id="username">Selamat datang, {{name}} !</p></h3>
+<h5>Sesi terakhir login: {{ last_login }}</h5>
+<a href="{% url 'authentication:logout_user' %}">
+    <button>
+        Logout
+    </button>
+</a>
