@@ -2,6 +2,13 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <style>
+        @media (max-width: 991px) {
+            .sidebar{
+                background-color: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(50px);
+            }
+        }</style>
         {% block meta %}
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -13,6 +20,39 @@
     </head>
 
     <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+            <div class="container">
+            <a class="navbar-brand fs-4" href="#">
+                <img src="https://media.discordapp.net/attachments/1073225472974016614/1167847329282404382/8eea6ccf-0c34-495c-865f-ecee259e3c4d-removebg.png?ex=654f9d94&is=653d2894&hm=0ab6ac3da6bf72debd8d06e4ffe17532dd7d64520784e5a1b014e3537214ce61&=" width="30" height="30" alt="">
+                Bookverse
+            </a>
+            <button class="navbar-toggler shadow-none border-" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    
+                <div class="offcanvas-header text-white border-bottom">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Bookverse</h5>
+                <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+    
+                <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
+                <ul class="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1 pe-3">
+                    <li class="nav-item mx-2">
+                    <a class="nav-link" href="#profile">Profile</a>
+                    </li>
+                </ul>
+                <div class="d-flex flex-column flex-lg-row align-items-center gap-3">
+                    <a href="#login" class="text-white">Login</a>
+                    <a href="#register" class="text-white text-decoration-none px-3 py-1 rounded-4" style="background-color: #f94ca4;">Sign up</a>
+                </div>
+                
+                </div>
+            </div>
+            </div>
+        </nav>
+    </body>
         {% block content %}
         {% endblock content %}
     </body>

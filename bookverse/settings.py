@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookProfile',
     'authentication',
+    'borrowreturn'
 ]
 
 MIDDLEWARE = [
