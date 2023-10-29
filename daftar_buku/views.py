@@ -9,7 +9,6 @@ book = Book.objects.all()
 
 def show_main(request):
     date = Main.objects.all()
-    #book = Book.objects.all()
     context = {
         'buku' : book,
         'tanggal' : date,
@@ -18,7 +17,6 @@ def show_main(request):
     return render(request, "landing_page.html", context)
 
 def get_books_json(request):
-    #book = Book.objects.all()
     return HttpResponse(serializers.serialize('json', book))
 
 def filter_books(request):
@@ -45,3 +43,6 @@ def filter_books(request):
     #return JsonResponse(filtered_books, safe=False)
     #data = [{'image_url_l': book.image_url_l, 'title': book.title, 'author': book.author, 'publication_year': book.publication_year, 'publisher': book.publisher} for book in filtered_books]
     #return JsonResponse(data, safe=False)
+
+# def go_to_profile(request, item_pk):
+#     item = book.get(item_pk)

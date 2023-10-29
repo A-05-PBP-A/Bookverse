@@ -1,5 +1,6 @@
 from django.db import models
+from datetime import date
 
 # Create your models here.
 class Main(models.Model):
-    date = models.DateField()
+    current_date = models.DateField(default=date.today)
