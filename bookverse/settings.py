@@ -39,8 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bookProfile',
-    'daftar_buku',
     'authentication',
+    'borrowreturn',
+    'daftar_buku',
     'userProfile',
 ]
 

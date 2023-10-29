@@ -23,4 +23,5 @@ urlpatterns = [
     path('', include('daftar_buku.urls')),
     path('', include('authentication.urls')),
     path('', include('userProfile.urls')),
+    path('', include('borrowreturn.urls')),
 ]

@@ -81,7 +81,9 @@
             <div class="col-md-3">
                 <div class="card mx-auto d-flex align-items-center" style="position: sticky; top: 0; border: none; align-items: flex-start; width: 100%; height: auto; object-fit: contain;">
                     <img src={{book.image_url_l}} class="card-img-top book-image" alt="Dummy Book Image">
-                    <button type="button" class="btn btn-outline-primary w-100 mb-3">Borrow</button>
+                    <a href="{% url 'borrowreturn:borrow_book' %}">
+                        <button type="button" class="btn btn-outline-primary w-100 mb-3">Borrow</button>
+                    </a>
                 </div>
             </div>
             

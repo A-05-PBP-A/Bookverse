@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from bookProfile.models import Review, Book
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse

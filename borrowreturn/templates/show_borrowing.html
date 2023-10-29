@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<head>
+    <title>Books You’re Enjoying Now</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </script>
+    <style>
+        .overdue {
+            color: red;
+        }
+    </style>
+</head>
+
+<br>
+
+
+<span>
+    <h1 style="text-align:center">Books You’re Enjoying Now</h1>
+</span>
+
+<a href="/borrow/">
+    <button class="btn btn-info border-" style="margin-left:30px; font-size: medium;">Borrow more book(s)</button>
+</a>
+
+<div style="padding: 40px;">
+    <div class="container mt-4">
+        <div class="form-group">
+            <input type="text" class="form-control" id="searchKeyword" placeholder="Enter title">
+        </div>
+        <button class="btn btn-primary" onclick="callFiltered()">Search</button>
+    </div>
+
+</div>
+<div class="container">
+    <div class="row" id="insert"></div>
+</div>
+</div>
+
+
+<script>
+
+    async function getBorrowings() {
+        return fetch("{% url 'borrowreturn:get_user_borrowing' %}").then((res) => res.json())
+    }
+
+
+    async function refreshItems(func) {
+        let now = new Date();
+        document.getElementById("insert").innerHTML = ""
+        const borrowings = await func()
+        let htmlString = ``
+        if (borrowings.length === 0) {
+            htmlString = `<h2 style="text-align:center; color: blue">You haven't borrowed any book yet.</h2>`
+        } else {
+            borrowings.forEach((item) => {
+                let returnDate = new Date(item.fields.return_date);
+                let isOverdue = returnDate < now ? 'overdue' : '';
+
+                htmlString += `
+                    <div class="col-md-3">
+                        <div class="card" style="width: 15rem; height: 32rem; margin: 20px">
+                            <a href="/book/${item.fields.reference_id}">
+                            <img src="${item.fields.image_url_l}" class="card-img-top" alt="book image" style="height:20rem">
+                            </a>
+                            <div class="card-body" style="overflow: hidden;">
+                                <h5 class="card-title" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">${item.fields.book_title}</h5>
+                                <p class="card-text">Return date: <span class="<span class="${isOverdue}"> ${item.fields.return_date} </span></p>
+                                <row>
+                                <button class="btn btn-success" onclick="returnBorrowing(${item.pk})">Return</button>
+                            </div>
+                        </div>
+                    </div>`
+            })
+        }
+        document.getElementById("insert").innerHTML = htmlString
+    }
+    refreshItems(getBorrowings)
+
+
+    function returnBorrowing(id) {
+        console.log(id)
+        fetch("/return-borrowing/" + id + "/", {
+            method: "PATCH",
+        }).then(refreshItems(getBorrowings))
+
+        return false
+    }
+    
+    async function filterBorrowings() {
+        const keyword = document.getElementById("searchKeyword").value;
+
+        return fetch("{% url 'borrowreturn:filter_borrowings' %}?keyword=" + keyword).then((res) => res.json());
+    }
+
+    async function callFiltered() {
+        refreshItems(filterBorrowings);
+    }
+
+</script>
+{% endblock content %}

@@ -2,6 +2,13 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <style>
+        @media (max-width: 991px) {
+            .sidebar{
+                background-color: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(50px);
+            }
+        }</style>
         {% block meta %}
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -48,11 +55,12 @@
                     <li class="nav-item mx-2">
                         <a id="random-link" class="nav-link" href="#">Surprise</a>
                     </li>
-                    {% if user.is_Admin %}
                     <li class="nav-item mx-2">
-                        <a id="random-link" class="nav-link" href="#">Cek admin</a>
+                        <a id="random-link" class="nav-link" href="/borrow/">Borrow</a>
                     </li>
-                    {% endif %}
+                    <li class="nav-item mx-2">
+                        <a id="random-link" class="nav-link" href="/my-borrowing/">My Borrow</a>
+                    </li>
                     {% endif %}
                 </ul>
                 <div class="d-flex flex-column flex-lg-row align-items-center gap-3">

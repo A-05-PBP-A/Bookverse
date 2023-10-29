@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<head>
+    <title>Book Loan Form</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </script>
+</head>
+<div style="background-color: #9A616D;">
+    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="card" style="width: 50rem;">
+            <div class="card-body">
+                <h1 class="card-title">Book Loan Form</h1>
+                <div class="container mt-5">
+                    <!-- Card -->
+                    <div class="row">
+                        <!-- Bagian Gambar Buku (Kiri) -->
+                        <div class="col-md-4">
+                            <div class="card mx-auto d-flex align-items-center"
+                                style="position: sticky; top: 0; border: none; align-items: flex-start; width: 100%; height: auto;">
+                                <img id="book-cover" src="http://images.amazon.com/images/P/0195153448.01.LZZZZZZZ.jpg"
+                                    style="max-width: 100%;
+                                height: auto;" class="card-img-top book-image" alt="unavailable">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <form method="POST" action="{% url 'borrowreturn:borrow_book' %}">
+                                {% csrf_token %}
+                                <select class="selectpicker" data-live-search="true" id="id_book" name="book">
+                                    {% for book in books %}
+                                    <option style="width: 20px;
+                                        overflow: hidden;
+                                        white-space: nowrap;
+                                        text-overflow: ellipsis; font-size:large;" value="{{ book.pk }}">
+                                        {{ book }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                                <br>
+                                <br>
+                                <div style="width: 50vw; color: brown;">
+                                    <p>You must return this book no later than 7 days from now</p>
+                                </div>
+                                <h5 style="text-align: center;">Are you sure you want to borrow this book?</h5>
+                                <div style="display:flex; justify-content:center;">
+                                    <button class="btn btn-dark" type="submit">Borrow this book</button>
+                                </div>
+
+                            </form>
+                            {% if messages %}
+                            <ul>
+                                {% for message in messages %}
+                                <li>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        async function getBooks() {
+            return fetch("{% url 'bookProfile:get_books' %}").then((res) => res.json())
+        }
+
+        $(document).ready(function () {
+            $('#id_book').change(function () {
+                var bookId = $(this).val();
+                $.get('/book-data/' + bookId + '/', function (data) {
+                    console.log(data);
+                    $('#book-cover').attr('src', data[0].fields.image_url_l);
+                });
+            });
+        });
+    </script>
+    {% endblock %}
