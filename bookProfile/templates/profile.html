@@ -225,7 +225,7 @@
 
     async function getReview() {
         const bookId = "{{ book.id }}"; 
-        return fetch(`/get_review_json/${bookId}`).then((res) => res.json())  
+        return fetch(`/book-profile/get_review_json/${bookId}`).then((res) => res.json())  
     }
 
     async function refreshReviews() {
@@ -243,7 +243,7 @@
                     }
                 }
                 htmlString += `
-                <div class="card mb-3" style="width: 58em; border: none;">
+                <div class="card mb-3" style="width: 100%; border: none;">
                     <div class="row no-gutters align-items-center">
                         <div class="col-md-1">
                             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" class="card-img" alt="profile" style="max-width: 100px;">

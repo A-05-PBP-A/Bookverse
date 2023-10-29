@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bookProfile',
-    'bv_overseer',
+    'daftar_buku',
 ]
 
 MIDDLEWARE = [
