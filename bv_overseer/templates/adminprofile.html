@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: lightblue;
+            background-color: white;
             text-align: center;
             margin: 0;
             padding: 0;
@@ -43,7 +43,7 @@
         }
 
         .box {
-            background-color: #fff;
+            background-color: rgb(241, 241, 241);
             border: 2px solid; /* Add an outline */
             padding: 20px;
             margin: 10px;
@@ -57,6 +57,32 @@
         }
         .box-3 {
             border-color: green; /* Green outline for the third box */
+        }
+        /* Style for the table container */
+        .table-container {
+            border: 1px solid blueviolet; /* Add a border inside the box */
+            padding: 10px; /* Add padding for even spacing */
+            overflow: auto; /* Add scroll if the content overflows */
+        }
+
+        /* Style for the centered table */
+        .centered-table {
+            width: 100%; /* Table takes full width of the container */
+            border-collapse: collapse; /* Collapse borders to avoid double borders */
+            background-color: white;
+        }
+
+        .centered-table th, .centered-table td {
+            border: 1px solid blueviolet; /* Add borders to table cells */
+            padding: 5px; /* Add padding for even spacing within cells */
+        }
+
+        /* Style the table headers if needed */
+        .centered-table th {
+            background-color: lightpink;
+            border: 1px solid blueviolet; /* Add borders to table cells */
+            font-weight: bold;
+            color: white;
         }
     </style>
 </head>
@@ -80,9 +106,26 @@
             <div class="box box-2">
                 <h2>Review</h2>
                 <p>List of every single review submitted by a user</p>
-                <a href="#">Read More</a>
+                <table class="centered-table">
+                    <thead>
+                        <tr>
+                            <th>Book</th>
+                            <th>Rating</th>
+                            <th>Review</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for review in reviews %}
+                            <tr>
+                                <td>{{ review.book }}</td>
+                                <td>{{ review.rating }}</td>
+                                <td>{{ review.review }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
-        </div>
+        </div>        
         <div class="col-md-3">
             <div class="box box-3">
                 <h2>User</h2>
