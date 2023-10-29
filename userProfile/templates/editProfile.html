@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+{% endblock meta %}
+
+{% block content %}
+
+<style>
+    .backButton {
+        border: none;
+        background: none;
+        padding: 0;
+        cursor: pointer;
+    }
+
+    .form-container {
+        text-align: center;
+    }
+
+    .form-control {
+        margin:0 auto;
+        margin-bottom: 20px;
+        display: block;
+        width: 90%;
+        padding: 0.875rem 1.125rem;
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1;
+        color: #69707a;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #c5ccd6;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: 0.35rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .saveButton {
+        margin:0 auto;
+        background-color: blue;
+        color: white;
+        width: 150px;
+        height: 50px;
+    }
+
+    .changePasswordButton{
+        margin:0 auto;
+        background-color: green;
+        color: white;
+        width: 150px;
+        height: 50px;
+    }
+
+    .user-img {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    #photo {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+    }
+
+    #file {
+        display: none;
+    }
+
+    #uploadbtn {
+        height: 30px;
+        width: 30px;
+        padding: 6px;
+        border-radius: 50%;
+        cursor: pointer;
+        color: white;
+        background-color: rgb(173, 172, 172, 0.801);
+        box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.644);
+        position: relative;
+        top: -20px;
+        border: 1px solid rgb(173, 172, 172, 0.801);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+<a href="{% url 'userProfile:show_user_profile' %}">
+    <button class="backButton">
+        <img src="https://github.com/A-05-PBP-A/Bookverse/assets/137851158/9b083068-c703-448b-b794-98c795d4b1ed" alt="back">
+    </button>
+</a>
+
+<div class="user-img">
+    <img src="{% if user_uploaded_image %}{{ user_uploaded_image }}{% else %}https://github.com/A-05-PBP-A/Bookverse/assets/137851158/862f73b2-2a11-42a9-b155-6528cc280cd4{% endif %}" id="photo" alt="idk">
+    <label for="file" id="uploadbtn"><i class='fas fa-camera'></i></label>
+    <input type="file" id="file">
+</div>
+
+<div class="form-container">
+    <form method="POST">
+        <div class="Username">
+            <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="{{ user.username }}">
+        </div>
+
+        <div class="Bio">
+            <input class="form-control" id="inputBio" type="text" placeholder="Enter your bio" value="{% if user.bio %}{{ user.bio }}{% else %}bio{% endif %}">
+        </div>
+
+        {% csrf_token %}
+
+        <button class="changePasswordButton" type="submit">Change Password</button>
+        <br>
+
+        <label class="warning" for="saveButton">Please save before you leave or any changes will not be saved</label>
+        <br>
+        <button id="saveButton" class="saveButton" type="submit">Save changes</button>
+    </form>
+</div>
+
+<script>
+    const imgDiv = document.querySelector('.user-img');
+    const img = document.querySelector('#photo');
+    const file = document.querySelector('#file');
+    const profileForm = document.querySelector('form');
+    const saveButton = document.querySelector('#saveButton');
+    const saveWarning = document.querySelector('.warning');
+
+    let unsavedChanges = false; // Track unsaved changes
+
+    file.addEventListener('change', function () {
+        const chosenFile = this.files[0];
+        if (chosenFile) {
+            const reader = new FileReader();
+
+            reader.addEventListener('load', function () {
+                img.setAttribute('src', reader.result);
+                unsavedChanges = true;
+            });
+            reader.readAsDataURL(chosenFile);
+        }
+    });
+
+    profileForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        if (unsavedChanges) {
+            const formData = new FormData(profileForm);
+
+            formData.append('additional_field', 'additional_value');
+
+            $.ajax({
+                url: profileForm.getAttribute('action'),
+                method: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    console.log('Changes saved successfully');
+                    saveWarning.style.display = 'none';
+                },
+                error: function (error) {
+                    console.error('Error saving changes');
+                }
+            });
+        }
+    });
+</script>
+{% endblock content %}

@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    .show-content {
+    list-style: none; 
+    display: flex;    
+    padding: 0;
+    justify-content: space-between; 
+    text-align: left;     
+    }
+
+    .show-content li {
+        margin-right: 10px; 
+    }
+
+    .show-content ul {
+        list-style: none;
+        position: absolute;
+        left: 0; 
+        display: none; 
+    }
+
+    .show-content .empty {
+        position: absolute;
+        display: none;
+        left: 50%; 
+        transform: translateX(-50%); 
+    }
+
+    .show-content a {
+        text-decoration: none; /* Remove underlines from links by default */
+    }
+
+    .show-content a:hover {
+        text-decoration: underline;
+    }
+
+    .show-content li.active a {
+        text-decoration: underline;
+        font-weight: bold;
+    }
+
+    .editProfile-button {
+        position: relative;
+        left: 50%; 
+        transform: translateX(-50%); 
+        background-color: green;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+
+    .user-img {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 auto;
+        text-align: center;
+    }
+</style>
+
+<div class="user-img">
+    <img src="{% if user_uploaded_image %}{{ user_uploaded_image }}{% else %}https://github.com/A-05-PBP-A/Bookverse/assets/137851158/862f73b2-2a11-42a9-b155-6528cc280cd4{% endif %}" id="photo">
+    <br>
+    <h3>{{ name }}</h3>
+    {% if user_instance.bio %}
+        <p>{{ user_instance.bio }}</p>
+    {% endif %}
+</div>
+
+<a href="{% url 'userProfile:show_edit_profile' %}">
+    <button class="editProfile-button">Edit Profile</button>
+</a>
+
+<nav>
+    <ul class="show-content">
+        <li><a href="#" id="booksHistory">Books History</a>
+            {% if user_instance.bookHistory.all %}
+                <ul>
+                    {% for book in user_instance.bookHistory.all %}
+                        <li>{{ book.title }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="empty">
+                    <h7>No books in history.</h7>
+                </div>
+            {% endif %}
+        </li>
+        <li><a href="#" id="borrowedBooks">Borrowed Books</a>
+            {% if user_instance.borrowedBooks.all %}
+                <ul>
+                    {% for book in user_instance.borrowedBooks.all %}
+                        <li>{{ book.title }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="empty">
+                    <h7>No books you have borrowed.</h7>
+                </div>
+            {% endif %}
+        </li>
+        <li><a href="#" id="favoriteBooks">Favorite Books</a>
+            {% if user_instance.favoriteBooks.all %}
+                <ul>
+                    {% for book in user_instance.favoriteBooks.all %}
+                        <li>{{ book.title }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="empty">
+                    <h7>No favorite books.</h7>
+                </div>
+            {% endif %}
+        </li>
+        <li><a href="#" id="reviewHistory">Reviews History</a>
+            {% if user_instance.reviewsHistory.all %}
+                <ul>
+                    {% for book in user_instance.reviewsHistory.all %}
+                        <li>{{ book.title }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="empty">
+                    <h7>No review.</h7>
+                </div>
+            {% endif %}
+        </li>
+    </ul>
+</nav>
+
+<script>
+    const listItems = document.querySelectorAll('.show-content > li');
+
+    listItems.forEach((listItem) => {
+        listItem.addEventListener('click', function () {
+            // Hide all sub-lists
+            listItems.forEach((item) => {
+                const subList = item.querySelector('ul');
+                const message = item.querySelector('.empty');
+                if (subList) {
+                    subList.style.display = 'none';
+                }
+
+                if(message){
+                    message.style.display = 'none';
+                }
+
+                item.classList.remove('active');
+            });
+
+            // Show the sub-list of the clicked list item
+            const subList = this.querySelector('ul');
+            const message = this.querySelector('.empty');
+            if (subList) {
+                subList.style.display = 'block';
+            }
+
+            if(message){
+                message.style.display = 'block';
+            }
+
+            this.classList.add('active');
+        });
+    });
+    const defaultActiveItem = document.querySelector('#booksHistory');
+    defaultActiveItem.click();
+</script>
+
+{% endblock content %}
