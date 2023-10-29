@@ -25,10 +25,6 @@
     <button class="btn btn-info border-" style="margin-left:30px; font-size: medium;">Borrow more book(s)</button>
 </a>
 
-
-
-
-
 <div style="padding: 40px;">
     <div class="container mt-4">
         <div class="form-group">
@@ -88,10 +84,11 @@
         console.log(id)
         fetch("/return-borrowing/" + id + "/", {
             method: "PATCH",
-        }).then(refreshItems)
+        }).then(refreshItems(getBorrowings))
 
         return false
     }
+    
     async function filterBorrowings() {
         const keyword = document.getElementById("searchKeyword").value;
 
