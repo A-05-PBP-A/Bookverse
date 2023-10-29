@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: white;
+            background-color: #e6e6fa;
             text-align: center;
             margin: 0;
             padding: 0;
@@ -38,7 +38,7 @@
         }
         
         .profile-description {
-            font-size: 18px;
+            font-size: 25px;
             margin: 20px 0;
         }
 
@@ -91,15 +91,14 @@
         <div class="profile-image"></div>
     </div>
     <h1 class="profile-name">{{ name }}</h1>
-    <p class="profile-description">BookVerse Admin</p>
+    <h1 class="profile-description">BookVerse Admin</h1>
 
     <div class="row justify-content-center">
         <div class="col-md-3">
             <div class="box box-1">
                 <h2>Buku</h2>
                 <p>Add or Delete book to the library inventory</p>
-                <button class="btn btn-primary">Add Book</button>
-                <button class="btn btn-primary">Delete Book</button>
+                <a href="{% url 'bv_overseer:add_book' %}" class="btn btn-primary">Add Book</a>
             </div>
         </div>
         <div class="col-md-3">

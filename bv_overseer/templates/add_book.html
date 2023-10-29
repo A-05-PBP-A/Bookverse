@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Book</title>
+    <style>
+        body {
+            background-color: #e6e6fa; /* Light purple color */
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .form-container {
+            text-align: center;
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .container * {
+            font-size: 1.2em;
+        }
+        .container h2 {
+            font-size: 3em;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Add a Book</h2>
+        <div class="form-container">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Add Book</button>
+                <a href="{% url 'bv_overseer:bv_overseer_view' %}" class="btn">Go back</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

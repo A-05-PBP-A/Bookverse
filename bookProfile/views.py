@@ -63,5 +63,3 @@ def show_review_xml(request):
 def show_review_xml_by_id(request, id):
     data = Review.objects.filter(pk=id)
     return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
-
-
