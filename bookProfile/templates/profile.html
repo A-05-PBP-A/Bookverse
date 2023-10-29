@@ -1,71 +1,299 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harry Potter and the Goblet of Fire</title>
-    <!-- Tambahkan CSS Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>{{book.title}}</title>
     <style>
         .book-image {
-            width: 393px;
+            width: 100%;
             height: auto;
-            margin: 10px; /* Tambahkan margin sekitar gambar */
+            object-fit: contain; 
+            margin: 10px; 
         }
+
+        .rating {
+        font-size: 30px;
+        }
+
+        a:hover .card-text-title {
+            text-decoration: underline;
+        }
+
+        a:hover .book-card-img {
+            transform: scale(1.05);
+            transition: transform .4s;
+        }
+
+        #bookScroll {
+        display: flex;
+        overflow-x: hidden;
+        }
+
+        @media (max-width: 834px) {
+            #bookScroll {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            button.arrow-btn {
+                display: none;
+            }
+        }
+
+        .arrow-btn {
+            font-size: 24px;
+            border: 2px solid black;
+            background-color: white;
+            color: black;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+
+        .arrow-btn:hover {
+            background-color: rgba(128, 128, 128, 0.2); 
+        }
+
+        .star {
+            cursor: pointer;
+        }
+
+        .star::before {
+            content: '✰';
+        }
+
+        .star:hover::before,
+        .star.active::before {
+            content: '★';
+            color: orange;
+        }           
     </style>
 </head>
-<body>
+<body>   
     <div class="container mt-5">
         <!-- Card -->
         <div class="row">
             <!-- Bagian Gambar Buku (Kiri) -->
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1554006152i/6.jpg" class="card-img-top book-image" alt="Dummy Book Image">
+            <div class="col-md-3">
+                <div class="card mx-auto d-flex align-items-center" style="position: sticky; top: 0; border: none; align-items: flex-start; width: 100%; height: auto; object-fit: contain;">
+                    <img src={{book.image_url_l}} class="card-img-top book-image" alt="Dummy Book Image">
+                    <button type="button" class="btn btn-outline-primary w-100 mb-3">Borrow</button>
                 </div>
             </div>
-        
-            <!-- Bagian Tombol dan Informasi Buku (Kanan) -->
-            <div class="col-md-8">
+            
+            <!-- Bagian Informasi Buku (Kanan) -->
+            <div class="col-md-9">
                 <div class="card">
                     <div class="card-body">
-                        <button type="button" class="btn btn-outline-primary btn-lg btn-block">Borrow</button>
-                        <h1 class="card-title">Harry Potter and the Goblet of Fire<span style="color: #888888;"> - July 8, 2000</span></h1>
-                        <p class="card-text" style="font-size: 1.5em; font-weight: normal;">By J.K. Rowling, Mary GrandPré (Illustrator), Jim Kay (Illustrator)</p>
-                        <p class="card-text">99 Ratings</p>
-                        <p class="card-text" >It is the summer holidays and soon Harry Potter will be starting his fourth year at Hogwarts School of Witchcraft and Wizardry. Harry is counting the days: there are new spells to be learnt, more Quidditch to be played, and Hogwarts castle to continue exploring. But Harry needs to be careful - there are unexpected dangers lurking...</p>
+                        <h1 class="card-title">{{book.title}}<span style="color: #888888;"> - {{book.publication_year}}</span></h1>
+                        <p class="card-text" style="font-size: 1.5em; font-weight: normal;">By {{book.author}}</p>
+                        <div id="average-rating" class="card-text" style="font-size: 31px;"></div>
                         <hr>
-                        <p class="card-text" style="font-size: 12px; color: #888888;">Language: English</p>
-                        <p class="card-text" style="font-size: 12px; color: #888888;">Pages: 734 pages</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Card Review -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card mt-3"> <!-- Tambahkan class mt-3 di sini -->
-                        <div class="card-body">
-                            <h2 class="card-title">Customer Review</h2>
-                            <form>
-                                <div class="form-group">
-                                    <label for="reviewTitle">Title</label>
-                                    <input type="text" class="form-control" id="reviewTitle" placeholder="Enter review title">
-                                </div>
-                                <div class="form-group">
-                                    <label for="reviewText">Review</label>
-                                    <textarea class="form-control" id="reviewText" rows="5" placeholder="Enter your review"></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit Review</button>
-                            </form>
+                        <p class="card-text" style="font-size: 15px; color: #888888;">ISBN: {{book.isbn}}</p>
+                        <p class="card-text" style="font-size: 15px; color: #888888;">Publisher: {{book.publisher}}</p>
+                        <hr>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3>Maybe You Like</h3>
+                            <span style="text-align: left;">
+                                <button class="arrow-btn mobile-hide" onclick="scrollRight2()"><i class="fas fa-arrow-left"></i></button>
+                                <button class="arrow-btn mobile-hide" onclick="scrollRight()"><i class="fas fa-arrow-right"></i></button>
+                            </span>
                         </div>
+                        <div id="bookScroll">
+                            {% for books in random_books %}
+                                <a href="{% url 'bookProfile:show_review' books.id %}" style="text-decoration: none; color: inherit;">
+                                    <div class="card book-card" style=" width: 200px; height: 500px; margin-right: 40px; border: none;">
+                                        <img src="{{books.image_url_l}}" class="card-img-top book-card-img" alt="Book Maybe" style="width: 200px; height: 315px; margin: 20px;">
+                                        <div class="card-body">
+                                            <p class="card-text-title"><b>{{books.title|slice:":35"}}{% if books.title|length > 35 %}...{% endif %}</b></p>
+                                            <p class="card-text">{{books.author}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        </div>                    
+                        <hr>
+                        <h3>Ratings & Reviews</h3>
+                        <form id="form" onsubmit="return false;">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="rating">Rating <span id="ratingWarning" style="color: red;"></span></label>
+                                <div class="rating">
+                                    <span class="star" data-rating="1"></span>
+                                    <span class="star" data-rating="2"></span>
+                                    <span class="star" data-rating="3"></span>
+                                    <span class="star" data-rating="4"></span>
+                                    <span class="star" data-rating="5"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="reviewText">Review</label>
+                                <textarea class="form-control" id="reviewText" name="review" rows="5" placeholder="Enter your review"></textarea>
+                            </div>
+                        </form>
+                        <button type="button" class="btn btn-primary mt-3" id="button_add" >Submit Review</button>
+                        <hr>
+                        <h3>Community Reviews</h3>
+                        <div id="review_table"></div>
                     </div>
                 </div>
             </div>
-        </div>
+
+        </div> 
         </div>
     </div>
 </body>
 </html>
+<script>
+    const stars = document.querySelectorAll('.star');
+    let selectedRating = 0;
+
+    stars.forEach(star => {
+        star.addEventListener('mouseover', () => {
+            const rating = star.getAttribute('data-rating');
+            stars.forEach(s => {
+                s.classList.remove('active');
+                if (s.getAttribute('data-rating') <= rating) {
+                    s.classList.add('active');
+                }
+            });
+        });
+
+        star.addEventListener('mouseout', () => {
+            stars.forEach(s => s.classList.remove('active'));
+            if (selectedRating > 0) {
+                stars.forEach(s => {
+                    if (s.getAttribute('data-rating') <= selectedRating) {
+                        s.classList.add('active');
+                    }
+                });
+            }
+        });
+
+        star.addEventListener('click', () => {
+            const rating = star.getAttribute('data-rating');
+            selectedRating = rating;
+            stars.forEach(s => {
+                s.classList.remove('active');
+                if (s.getAttribute('data-rating') <= rating) {
+                    s.classList.add('active');
+                }
+            });
+        });
+    });
+
+    var scrollContainer = document.getElementById('bookScroll');
+
+    function scrollRight() {
+        scrollContainer.scrollBy({ left: 960, behavior: 'smooth' });
+    }
+
+    function scrollRight2() {
+        scrollContainer.scrollBy({ left: -960, behavior: 'smooth' });
+    }
+
+    async function getAverageRating() {
+        const reviews = await getReview();
+        let totalRating = 0;
+        if (reviews.length > 0) {
+            reviews.forEach((item) => {
+                totalRating += item.fields.rating;
+            });
+            return totalRating / reviews.length;
+        } else {
+            return 0;
+        }
+    }
+
+    async function displayAverageRating() {
+        const averageRating = await getAverageRating();
+        const reviews = await getReview();
+        const starsElement =  document.getElementById("average-rating");
+        let stars = '';
+        for(let i=1; i<=5; i++){
+            if(i <= Math.round(averageRating)){
+                stars += '<span style="color: orange;">★</span>';
+            } else {
+                stars += '<span style="color: gray;">★</span>';
+            }
+        }
+        starsElement.innerHTML = `${stars} ${averageRating.toFixed(2)} <span style="color: #888888; font-size: 15px; position: relative; top: -3px;">${reviews.length} Ratings</span>`;
+    }
+
+    async function getReview() {
+        const bookId = "{{ book.id }}"; 
+        return fetch(`/get_review_json/${bookId}`).then((res) => res.json())  
+    }
+
+    async function refreshReviews() {
+        document.getElementById("review_table").innerHTML = ""
+        const review = await getReview()
+        let htmlString = ''
+        if (review.length > 0) {
+            review.forEach((item) => {
+                let stars = '';
+                for(let i=0; i<5; i++){
+                    if(i<item.fields.rating){
+                        stars += '<span style="color: orange;">★</span>';
+                    } else {
+                        stars += '<span style="color: gray;">★</span>';
+                    }
+                }
+                htmlString += `
+                <div class="card mb-3" style="width: 58em; border: none;">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col-md-1">
+                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" class="card-img" alt="profile" style="max-width: 100px;">
+                        </div>
+                        <div class="col-md-11">
+                            <div class="card-body">
+                                <h5 class="card-title">Rating: ${stars}</h5>
+                                <p class="card-text">${item.fields.review}</p>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>` 
+            })
+        } else {
+            htmlString = `
+            <div class="alert alert-info" role="alert">
+                Maaf, belum ada review yang tersedia untuk buku ini. Jadilah yang pertama untuk memberikan review!
+            </div>`;
+        }
+        
+        document.getElementById("review_table").innerHTML = htmlString
+        displayAverageRating();
+    }
+    refreshReviews()
+    
+    function addReview() {
+        const rating = selectedRating;
+        const bookId = "{{ book.id }}";
+
+        // Cek apakah rating dan review kosong
+        if (!rating) {
+            document.getElementById("ratingWarning").textContent = "Rating harus diisi!";
+            return false;
+        } else {
+            document.getElementById("ratingWarning").textContent = "";
+        }
+
+        const formData = new FormData(document.querySelector('#form'));
+        formData.append('rating', rating);
+        formData.append('book_id', bookId);
+        
+        fetch("{% url 'bookProfile:add_review_ajax' %}", {
+            method: "POST",
+            body: formData
+        }).then(refreshReviews);
+
+        document.getElementById("form").reset();
+        return false;
+    }
+    document.getElementById("button_add").onclick = addReview
+</script>
 {% endblock %}
