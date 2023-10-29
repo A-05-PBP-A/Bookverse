@@ -13,17 +13,17 @@ def show_user_profile(request):
     context = {
         'name': request.user.username,
     }
-
     return render(request, "userProfile.html", context)
 
+@login_required(login_url='authentication:login_user')
 def show_edit_profile(request):
     if request.method == 'POST':
-        form = UserChangeForm(request.POST, instance=request.user)
+        form = UserProfileForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
+            return redirect('show_user_profile')
     else:
-        form = UserChangeForm(instance=request.user)
-
+        form = UserProfileForm(instance=request.user)
     return render(request, 'editProfile.html', {'form': form})
 
 def change_password(request):

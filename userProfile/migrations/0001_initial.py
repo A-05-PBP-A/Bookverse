@@ -10,7 +10,6 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('bookProfile', '0005_rename_isbn_book_isbn'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 

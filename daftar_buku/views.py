@@ -1,8 +1,10 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.core import serializers
+from django.urls import reverse
+from daftar_buku.forms import FeedbackForm
 
-from daftar_buku.models import Main
+from daftar_buku.models import Main, Feedback
 from bookProfile.models import Book
 
 from django.utils import timezone
@@ -10,10 +12,12 @@ from django.utils import timezone
 book = Book.objects.all()
 
 def show_main(request):
-    tanggal = Main.objects.all()
+    date = Main.objects.all()
+    feedback = Feedback.objects.all()
     context = {
         'buku' : book,
-        'tanggal' : tanggal,
+        'tanggal' : date,
+        'feedback' : feedback,
     }
 
     return render(request, "landing_page.html", context)
@@ -37,3 +41,17 @@ def filter_books(request):
         filtered_books = book
 
     return HttpResponse(serializers.serialize('json', filtered_books))
+
+def feedback_form(request):
+    form = FeedbackForm(request.POST or None)
+
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse('daftar_buku:show_main'))
+
+    context = {'form': form}
+    return render(request, "feedback_form.html", context)
+
+def show_feedback_json(request):
+    feedback = Feedback.objects.all()
+    return HttpResponse(serializers.serialize("json", feedback), content_type="application/json")
