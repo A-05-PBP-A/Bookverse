@@ -6,10 +6,10 @@ from django.contrib.auth.models import User
 class Pengguna(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
-    booksHistory = models.ManyToManyField(Book, related_name='books_history', blank=True)
-    borrowedBooks = models.ManyToManyField(Book, related_name='borrowed_book', blank=True)
-    favoriteBooks = models.ManyToManyField(Book, related_name='favorite_books', blank=True)
-    reviewsHistory = models.ManyToManyField(Review, related_name='reviews_history', blank=True)
+    booksHistory = models.ForeignKey(Book, related_name='books_history', blank=True, on_delete=models.CASCADE)
+    borrowedBooks = models.ForeignKey(Book, related_name='borrowed_book', blank=True, on_delete=models.CASCADE)
+    favoriteBooks = models.ForeignKey(Book, related_name='favorite_books', blank=True, on_delete=models.CASCADE)
+    reviewsHistory = models.ForeignKey(Review, related_name='reviews_history', blank=True, on_delete=models.CASCADE)
 
     def add_book_to_history(self, book):
         self.booksHistory.add(book)

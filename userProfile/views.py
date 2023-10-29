@@ -6,7 +6,6 @@ from django.contrib.auth import update_session_auth_hash
 from userProfile.forms import ChangePasswordForm
 from django.contrib.auth.forms import UserChangeForm
 
-
 # Create your views here.
 @login_required(login_url='authentication:login_user')
 def show_user_profile(request):

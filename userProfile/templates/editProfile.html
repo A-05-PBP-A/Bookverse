@@ -119,6 +119,7 @@
         <button class="changePasswordButton" type="submit">Change Password</button>
         <br>
 
+        {% csrf_token %}
         <label class="warning" for="saveButton">Please save before you leave or any changes will not be saved</label>
         <br>
         <button id="saveButton" class="saveButton" type="submit">Save changes</button>
