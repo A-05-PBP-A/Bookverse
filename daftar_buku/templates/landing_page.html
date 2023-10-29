@@ -3,34 +3,7 @@
 
 {% block content%}
 <body>
-    <div>
-        <nav class="navbar navbar-dark" style = "background-color: #153d6b;">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Bookverse</a>
-            </div>
-        </nav>
-    </div>
-
-    <p>{{ tanggal }}</p>
-
     <div style="padding: 40px;">
-        <!-- <div class="input-group mb-3" style="padding: 0px 20px">
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="search books..." aria-label="search books..." aria-describedby="button-addon2">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      All
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Author</a></li>
-                      <li><a class="dropdown-item" href="#">Year</a></li>
-                      <li><a class="dropdown-item" href="#">Publisher</a></li>
-                    </ul>
-                </div>
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
-            </div>
-        </div> -->
-
         <div class="container mt-4">
             <div class="form-group">
               <input type="text" class="form-control" id="searchKeyword" placeholder="Enter keyword">
@@ -68,6 +41,7 @@
             products.forEach((item) => {
                 htmlString += `
                     <div class="col-md-3">
+                        <a href="/book-profile/book/${item.pk}/" style="text-decoration: none; color: inherit;">
                         <div class="card" style="width: 15rem; height: 32rem; margin: 20px">
                             <img src="${item.fields.image_url_l}" class="card-img-top" alt="book image" style="height:20rem">
                             <div class="card-body" style="overflow: hidden;">
@@ -77,6 +51,7 @@
                                 <p class="card-text">${item.fields.publisher}</p>
                             </div>
                         </div>
+                        </a>
                     </div>` 
                 })
                 
@@ -88,17 +63,13 @@
             const keyword = document.getElementById("searchKeyword").value;
             const filterType = document.getElementById("filterType").value;
     
-            const response = await fetch("{% url 'daftar_buku:filter_books' %}?keyword=" + keyword + "&filter_type=" + filterType).then((res) => res.json());
-            console.log(response)
-            return response;
-            //return fetch("{% url 'daftar_buku:filter_books' %}?keyword=" + keyword + "&filter_type=" + filterType).then((res) => res.json());
+            return fetch("{% url 'daftar_buku:filter_books' %}?keyword=" + keyword + "&filter_type=" + filterType).then((res) => res.json());
         }
 
         async function callFiltered() {
             refreshProducts(filterBooks);
         }
         
-        //document.getElementById("filterButton").addEventListener("click", filterBooks);
     </script>
 </body>
 {% endblock content %}
