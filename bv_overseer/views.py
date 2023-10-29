@@ -1,20 +1,15 @@
-from django.shortcuts import render
-from bookProfile.models import Review
-from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from bookProfile.models import Review, Book
+from django.contrib.auth import get_user_model   
 from .forms import AddBookForm
 from django.urls import reverse
 
-# Create your views here.
-def show_overseer_main(request):
-    context = {
-        'name': 'Pak Bepe',
-    }
-
-    return render(request, "adminprofile.html", context)
-
 def bv_overseer_view(request):
     reviews = Review.objects.all()  # Fetch reviews from the "bookProfile" model
-    context = {'reviews': reviews}
+    users = User.objects.all()
+    context = {'reviews': reviews,
+               'users': users}
     return render(request, 'adminprofile.html', context)
 
 def add_book(request):
@@ -23,8 +18,20 @@ def add_book(request):
         if form.is_valid():
             # Create a new Book instance with the form data
             new_book = form.save()
-            return redirect(reverse('bv_overseer: bv_overseer_view'))
+            return HttpResponseRedirect(reverse('bv_overseer:bv_overseer_view'))
     else:   
         form = AddBookForm()
 
     return render(request, 'add_book.html', {'form': form})
+
+User = get_user_model()
+
+def delete_review(request, review_id):
+    # Get the review to delete
+    review = get_object_or_404(Review, id=review_id)
+    
+    if request.method == 'POST':
+        # Delete the review
+        review.delete()
+        # Redirect back to the admin profile page or another suitable page
+        return HttpResponseRedirect(reverse('bv_overseer:bv_overseer_view'))

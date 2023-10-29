@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('bookProfile.urls')),
     path('', include('daftar_buku.urls')),
     path('', include("authentication.urls")),
+    path('', include("bv_overseer.urls")),
 ]

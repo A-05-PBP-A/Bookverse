@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookProfile',
     'daftar_buku',
-    'authentication'
+    'authentication',
+    'bv_overseer',
 ]
 
 MIDDLEWARE = [
