@@ -9,7 +9,6 @@ class TruncatedLabelModelChoiceField(forms.ModelChoiceField):
         return Truncator(obj.title).chars(50)
     
 class BorrowingForm(ModelForm):
-    book = TruncatedLabelModelChoiceField(queryset=Book.objects.all())
     class Meta:
         model = Borrowing
-        fields = ['user', 'book']
+        fields = []

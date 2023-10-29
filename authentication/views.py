@@ -5,17 +5,15 @@ from django.contrib.auth import authenticate, login, logout
 import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-@login_required(login_url='/login')
 def show_landing(request):
     if 'last_login' not in request.COOKIES.keys():
         return redirect('authentication:login_user')
     context = {'name': request.user.username,
             'last_login': request.COOKIES['last_login'],
             }
-    return render(request, "temp_landing.html", context)
+    return render(request, "landing_page.html", context)
 
 def register(request):
     form = UserCreationForm()
@@ -35,7 +33,8 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            response = HttpResponseRedirect(reverse("authentication:show_landing")) 
+            # response = HttpResponseRedirect(reverse("authentication:show_landing")) 
+            response = HttpResponseRedirect(reverse("borrowreturn:borrow_book")) 
             response.set_cookie('last_login', str(datetime.datetime.now()))
             return response
         else:
@@ -45,6 +44,6 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    response = HttpResponseRedirect(reverse('authentication:login_user'))
+    response = HttpResponseRedirect(reverse('daftar_buku:show_main'))
     response.delete_cookie('last_login')
     return response

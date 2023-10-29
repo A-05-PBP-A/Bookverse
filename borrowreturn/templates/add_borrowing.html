@@ -4,6 +4,7 @@
 
 <head>
     <title>Book Loan Form</title>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </script>
 </head>
@@ -25,9 +26,9 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <form method="POST">
+                            <form method="POST" action="{% url 'borrowreturn:borrow_book' %}">
                                 {% csrf_token %}
-                                <select id="id_book" name="book">
+                                <select class="selectpicker" data-live-search="true" id="id_book" name="book">
                                     {% for book in books %}
                                     <option style="width: 20px;
                                         overflow: hidden;
@@ -64,7 +65,7 @@
         $(document).ready(function () {
             $('#id_book').change(function () {
                 var bookId = $(this).val();
-                $.get('/book_data/' + bookId + '/', function (data) {
+                $.get('/book-data/' + bookId + '/', function (data) {
                     console.log(data);
                     $('#book-cover').attr('src', data[0].fields.image_url_l);
                 });
