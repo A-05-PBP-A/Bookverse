@@ -41,7 +41,7 @@
             products.forEach((item) => {
                 htmlString += `
                     <div class="col-md-3">
-                        <a href="/book-profile/book/${item.pk}/" style="text-decoration: none; color: inherit;">
+                        <a href="/book/${item.pk}/" style="text-decoration: none; color: inherit;">
                         <div class="card" style="width: 15rem; height: 32rem; margin: 20px">
                             <img src="${item.fields.image_url_l}" class="card-img-top" alt="book image" style="height:20rem">
                             <div class="card-body" style="overflow: hidden;">

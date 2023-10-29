@@ -7,8 +7,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from random import sample
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required(login_url='/login/')
 def show_review(request, book_id):
     book = get_object_or_404(Book, pk=book_id)
     books = Book.objects.all()
@@ -38,10 +40,12 @@ def add_review_ajax(request):
         rating = request.POST.get("rating")
         review = request.POST.get("review")
         book_id = request.POST.get("book_id")  
+        user = request.user
+        name = request.user.username
 
-        book = get_object_or_404(Book, pk=book_id)  
+        book = get_object_or_404(Book, pk=book_id)    
 
-        new_review = Review(rating=rating, review=review, book=book) 
+        new_review = Review(rating=rating, review=review, book=book, user=user ,name=name) 
         new_review.save()
 
         return HttpResponse(b"CREATED", status=201)
