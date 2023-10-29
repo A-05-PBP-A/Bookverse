@@ -48,6 +48,11 @@
                     <li class="nav-item mx-2">
                         <a id="random-link" class="nav-link" href="#">Surprise</a>
                     </li>
+                    {% if user.is_Admin %}
+                    <li class="nav-item mx-2">
+                        <a id="random-link" class="nav-link" href="#">Cek admin</a>
+                    </li>
+                    {% endif %}
                     {% endif %}
                 </ul>
                 <div class="d-flex flex-column flex-lg-row align-items-center gap-3">

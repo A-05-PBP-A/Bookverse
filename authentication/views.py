@@ -16,15 +16,23 @@ def show_landing(request):
     return render(request, "landing_page.html", context)
 
 def register(request):
-    form = UserCreationForm()
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            is_admin = request.POST.get('is_Admin', False)
+            if is_admin == 'on':
+                user.is_Admin = True
+                is_admin = True
+            else:
+                user.is_User = True
+            user.save()
             messages.success(request, 'Your account has been successfully created!')
             return redirect('authentication:login_user')
-    context = {'form':form}
-    return render(request, 'register.html', context)
+    else:
+        form = UserCreationForm()
+    return render(request, 'register.html', {'form': form, 'is_admin': is_admin})
+
 
 def login_user(request):
     if request.method == 'POST':
