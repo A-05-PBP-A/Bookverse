@@ -10,11 +10,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='book',
-            old_name='ISBN',
-            new_name='isbn',
-        ),
         migrations.RemoveField(
             model_name='review',
             name='created_at',

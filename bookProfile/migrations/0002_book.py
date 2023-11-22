@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
             name='Book',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('ISBN', models.CharField(blank=True, max_length=13, null=True)),
+                ('isbn', models.CharField(blank=True, max_length=13, null=True)),
                 ('title', models.CharField(blank=True, max_length=255, null=True)),
                 ('author', models.CharField(blank=True, max_length=255, null=True)),
                 ('publication_year', models.IntegerField(blank=True, null=True)),
