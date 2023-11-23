@@ -18,9 +18,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('bio', models.TextField(blank=True, max_length=500)),
-                ('booksHistory', models.ManyToManyField(blank=True, related_name='books_history', to='bookProfile.book')),
-                ('borrowedBooks', models.ManyToManyField(blank=True, related_name='borrowed_book', to='bookProfile.book')),
-                ('favoriteBooks', models.ManyToManyField(blank=True, related_name='favorite_books', to='bookProfile.book')),
+                ('booksHistory', models.ManyToManyField(blank=True, related_name='books_history', to='bookProfile.Book')),
+                ('borrowedBooks', models.ManyToManyField(blank=True, related_name='borrowed_book', to='bookProfile.Book')),
+                ('favoriteBooks', models.ManyToManyField(blank=True, related_name='favorite_books', to='bookProfile.Book')),
                 ('reviewsHistory', models.ManyToManyField(blank=True, related_name='reviews_history', to='bookProfile.review')),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
