@@ -11,7 +11,7 @@ def load_my_initial_data(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bookProfile', '0002_book'),
+        ('bookProfile', '0001_initial'),
     ]
 
     operations = [
