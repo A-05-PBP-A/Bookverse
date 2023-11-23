@@ -10,9 +10,9 @@ class Book(models.Model):
     author = models.CharField(max_length=255, null= True, blank = True)
     publication_year = models.IntegerField(null= True, blank = True)
     publisher = models.CharField(max_length=255, null= True, blank = True )
-    image_url_s = models.URLField(null= True, blank = True)
-    image_url_m = models.URLField(null= True, blank = True)
-    image_url_l = models.URLField(null= True, blank = True)
+    image_url_s = models.TextField(null= True, blank = True)
+    image_url_m = models.TextField(null= True, blank = True)
+    image_url_l = models.TextField(null= True, blank = True)
 
     def __str__(self):
         return Truncator(self.title).chars(50)

@@ -1,7 +1,7 @@
 [
   {
     "pk": 1,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0195153448",
       "title": "Classical Mythology",
@@ -15,7 +15,7 @@
   },
   {
     "pk": 2,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0002005018",
       "title": "Clara Callan",
@@ -29,7 +29,7 @@
   },
   {
     "pk": 3,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0060973129",
       "title": "Decision in Normandy",
@@ -43,7 +43,7 @@
   },
   {
     "pk": 4,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0374157065",
       "title": "Flu: The Story of the Great Influenza Pandemic of 1918 and the Search for the Virus That Caused It",
@@ -57,7 +57,7 @@
   },
   {
     "pk": 5,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0393045218",
       "title": "The Mummies of Urumchi",
@@ -71,7 +71,7 @@
   },
   {
     "pk": 6,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0399135782",
       "title": "The Kitchen God's Wife",
@@ -85,7 +85,7 @@
   },
   {
     "pk": 7,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0425176428",
       "title": "What If?: The World's Foremost Military Historians Imagine What Might Have Been",
@@ -99,7 +99,7 @@
   },
   {
     "pk": 8,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0671870432",
       "title": "PLEADING GUILTY",
@@ -113,7 +113,7 @@
   },
   {
     "pk": 9,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0679425608",
       "title": "Under the Black Flag: The Romance and the Reality of Life Among the Pirates",
@@ -127,7 +127,7 @@
   },
   {
     "pk": 10,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "074322678X",
       "title": "Where You'll Find Me: And Other Stories",
@@ -141,7 +141,7 @@
   },
   {
     "pk": 11,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0771074670",
       "title": "Nights Below Station Street",
@@ -155,7 +155,7 @@
   },
   {
     "pk": 12,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "080652121X",
       "title": "Hitler's Secret Bankers: The Myth of Swiss Neutrality During the Holocaust",
@@ -169,7 +169,7 @@
   },
   {
     "pk": 13,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0887841740",
       "title": "The Middle Stories",
@@ -183,9 +183,9 @@
   },
   {
     "pk": 14,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
-      "isbn": 1552041778,
+      "isbn": "1552041778",
       "title": "Jane Doe",
       "author": "R. J. Kaiser",
       "publication_year": 1999,
@@ -197,9 +197,9 @@
   },
   {
     "pk": 15,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
-      "isbn": 1558746218,
+      "isbn": "1558746218",
       "title": "A Second Chicken Soup for the Woman's Soul (Chicken Soup for the Soul Series)",
       "author": "Jack Canfield",
       "publication_year": 1998,
@@ -211,9 +211,9 @@
   },
   {
     "pk": 16,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
-      "isbn": 1567407781,
+      "isbn": "1567407781",
       "title": "The Witchfinder (Amos Walker Mystery Series)",
       "author": "Loren D. Estleman",
       "publication_year": 1998,
@@ -225,9 +225,9 @@
   },
   {
     "pk": 17,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
-      "isbn": 1575663937,
+      "isbn": "1575663937",
       "title": "More Cunning Than Man: A Social History of Rats and Man",
       "author": "Robert Hendrickson",
       "publication_year": 1999,
@@ -239,9 +239,9 @@
   },
   {
     "pk": 18,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
-      "isbn": 1881320189,
+      "isbn": "1881320189",
       "title": "Goodbye to the Buttermilk Sky",
       "author": "Julia Oliver",
       "publication_year": 1994,
@@ -253,7 +253,7 @@
   },
   {
     "pk": 19,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0440234743",
       "title": "The Testament",
@@ -267,7 +267,7 @@
   },
   {
     "pk": 20,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0452264464",
       "title": "Beloved (Plume Contemporary Fiction)",
@@ -281,7 +281,7 @@
   },
   {
     "pk": 21,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0609804618",
       "title": "Our Dumb Century: The Onion Presents 100 Years of Headlines from America's Finest News Source",
@@ -295,9 +295,9 @@
   },
   {
     "pk": 22,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
-      "isbn": 1841721522,
+      "isbn": "1841721522",
       "title": "New Vegetarian: Bold and Beautiful Recipes for Every Occasion",
       "author": "Celia Brooks Brown",
       "publication_year": 2001,
@@ -309,9 +309,9 @@
   },
   {
     "pk": 23,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
-      "isbn": 1879384493,
+      "isbn": "1879384493",
       "title": "If I'd Known Then What I Know Now: Why Not Learn from the Mistakes of Others? : You Can't Afford to Make Them All Yourself",
       "author": "J. R. Parrish",
       "publication_year": 2003,
@@ -323,7 +323,7 @@
   },
   {
     "pk": 24,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0061076031",
       "title": "Mary-Kate &amp; Ashley Switching Goals (Mary-Kate and Ashley Starring in)",
@@ -337,7 +337,7 @@
   },
   {
     "pk": 25,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0439095026",
       "title": "Tell Me This Isn't Happening",
@@ -351,7 +351,7 @@
   },
   {
     "pk": 26,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0689821166",
       "title": "Flood : Mississippi 1927",
@@ -365,7 +365,7 @@
   },
   {
     "pk": 27,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0971880107",
       "title": "Wild Animus",
@@ -379,7 +379,7 @@
   },
   {
     "pk": 28,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0345402871",
       "title": "Airframe",
@@ -393,7 +393,7 @@
   },
   {
     "pk": 29,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0345417623",
       "title": "Timeline",
@@ -407,7 +407,7 @@
   },
   {
     "pk": 30,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0684823802",
       "title": "OUT OF THE SILENT PLANET",
@@ -421,7 +421,7 @@
   },
   {
     "pk": 31,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0375759778",
       "title": "Prague : A Novel",
@@ -435,7 +435,7 @@
   },
   {
     "pk": 32,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0425163091",
       "title": "Chocolate Jesus",
@@ -449,9 +449,9 @@
   },
   {
     "pk": 33,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
-      "isbn": 3404921038,
+      "isbn": "3404921038",
       "title": "Wie Barney es sieht.",
       "author": "Mordecai Richler",
       "publication_year": 2002,
@@ -463,9 +463,9 @@
   },
   {
     "pk": 34,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
-      "isbn": 3442353866,
+      "isbn": "3442353866",
       "title": "Der Fluch der Kaiserin. Ein Richter- Di- Roman.",
       "author": "Eleanor Cooney",
       "publication_year": 2001,
@@ -477,9 +477,9 @@
   },
   {
     "pk": 35,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
-      "isbn": 3442410665,
+      "isbn": "3442410665",
       "title": "Sturmzeit. Roman.",
       "author": "Charlotte Link",
       "publication_year": 1991,
@@ -491,9 +491,9 @@
   },
   {
     "pk": 36,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
-      "isbn": 3442446937,
+      "isbn": "3442446937",
       "title": "Tage der Unschuld.",
       "author": "Richard North Patterson",
       "publication_year": 2000,
@@ -505,7 +505,7 @@
   },
   {
     "pk": 37,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0375406328",
       "title": "Lying Awake",
@@ -519,7 +519,7 @@
   },
   {
     "pk": 38,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0446310786",
       "title": "To Kill a Mockingbird",
@@ -533,7 +533,7 @@
   },
   {
     "pk": 39,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0449005615",
       "title": "Seabiscuit: An American Legend",
@@ -547,7 +547,7 @@
   },
   {
     "pk": 40,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0060168013",
       "title": "Pigs in Heaven",
@@ -561,7 +561,7 @@
   },
   {
     "pk": 41,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "038078243X",
       "title": "Miss Zukas and the Raven's Dance",
@@ -575,7 +575,7 @@
   },
   {
     "pk": 42,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "055321215X",
       "title": "Pride and Prejudice",
@@ -589,7 +589,7 @@
   },
   {
     "pk": 43,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "067176537X",
       "title": "The Therapeutic Touch: How to Use Your Hands to Help or to Heal",
@@ -603,7 +603,7 @@
   },
   {
     "pk": 44,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0061099686",
       "title": "Downtown",
@@ -617,7 +617,7 @@
   },
   {
     "pk": 45,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0553582909",
       "title": "Icebound",
@@ -631,7 +631,7 @@
   },
   {
     "pk": 46,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0671888587",
       "title": "I'll Be Seeing You",
@@ -645,7 +645,7 @@
   },
   {
     "pk": 47,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0553582747",
       "title": "From the Corner of His Eye",
@@ -659,7 +659,7 @@
   },
   {
     "pk": 48,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0425182908",
       "title": "Isle of Dogs",
@@ -673,7 +673,7 @@
   },
   {
     "pk": 49,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "042518630X",
       "title": "Purity in Death",
@@ -687,7 +687,7 @@
   },
   {
     "pk": 50,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0440223571",
       "title": "This Year It Will Be Different: And Other Stories",
@@ -701,7 +701,7 @@
   },
   {
     "pk": 51,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0812523873",
       "title": "Proxies",
@@ -715,7 +715,7 @@
   },
   {
     "pk": 52,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0842342702",
       "title": "Left Behind: A Novel of the Earth's Last Days (Left Behind #1)",
@@ -729,7 +729,7 @@
   },
   {
     "pk": 53,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0440225701",
       "title": "The Street Lawyer",
@@ -743,7 +743,7 @@
   },
   {
     "pk": 54,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0060914068",
       "title": "Love, Medicine and Miracles",
@@ -757,7 +757,7 @@
   },
   {
     "pk": 55,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0156047624",
       "title": "All the King's Men",
@@ -771,7 +771,7 @@
   },
   {
     "pk": 56,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0245542957",
       "title": "Pacific Northwest",
@@ -785,7 +785,7 @@
   },
   {
     "pk": 57,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0380715899",
       "title": "A Soldier of the Great War",
@@ -799,7 +799,7 @@
   },
   {
     "pk": 58,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0553280333",
       "title": "Getting Well Again",
@@ -813,7 +813,7 @@
   },
   {
     "pk": 59,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0961769947",
       "title": "Northwest Wines and Wineries",
@@ -827,7 +827,7 @@
   },
   {
     "pk": 60,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0964778319",
       "title": "An Atmosphere of Eternity: Stories of India",
@@ -841,7 +841,7 @@
   },
   {
     "pk": 61,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0671623249",
       "title": "LONESOME DOVE",
@@ -855,7 +855,7 @@
   },
   {
     "pk": 62,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0679810307",
       "title": "Shabanu: Daughter of the Wind (Border Trilogy)",
@@ -869,7 +869,7 @@
   },
   {
     "pk": 63,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0679865691",
       "title": "Haveli (Laurel Leaf Books)",
@@ -883,9 +883,9 @@
   },
   {
     "pk": 64,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
-      "isbn": 2070423204,
+      "isbn": "2070423204",
       "title": "Lieux dits",
       "author": "Michel Tournier",
       "publication_year": 2002,
@@ -897,7 +897,7 @@
   },
   {
     "pk": 65,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0345260317",
       "title": "The Dragons of Eden: Speculations on the Evolution of Human Intelligence",
@@ -911,7 +911,7 @@
   },
   {
     "pk": 66,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0394743741",
       "title": "The yawning heights",
@@ -925,7 +925,7 @@
   },
   {
     "pk": 67,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "042511774X",
       "title": "Breathing Lessons",
@@ -939,7 +939,7 @@
   },
   {
     "pk": 68,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0804106304",
       "title": "The Joy Luck Club",
@@ -953,9 +953,9 @@
   },
   {
     "pk": 69,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
-      "isbn": 1853262404,
+      "isbn": "1853262404",
       "title": "Heart of Darkness (Wordsworth Collection)",
       "author": "Joseph Conrad",
       "publication_year": 1998,
@@ -967,7 +967,7 @@
   },
   {
     "pk": 70,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0312970242",
       "title": "The Angel Is Near",
@@ -981,9 +981,9 @@
   },
   {
     "pk": 71,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
-      "isbn": 1853260053,
+      "isbn": "1853260053",
       "title": "Tess of the D'Urbervilles (Wordsworth Classics)",
       "author": "Thomas Hardy",
       "publication_year": 1997,
@@ -995,9 +995,9 @@
   },
   {
     "pk": 72,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
-      "isbn": 1414035004,
+      "isbn": "1414035004",
       "title": "The Adventures of Drew and Ellie: The Magical Dress",
       "author": "Charles Noland",
       "publication_year": 2003,
@@ -1009,7 +1009,7 @@
   },
   {
     "pk": 73,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0060938412",
       "title": "The Accidental Virgin",
@@ -1023,7 +1023,7 @@
   },
   {
     "pk": 74,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0140067477",
       "title": "The Tao of Pooh",
@@ -1037,7 +1037,7 @@
   },
   {
     "pk": 75,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0345465083",
       "title": "Seabiscuit",
@@ -1051,7 +1051,7 @@
   },
   {
     "pk": 76,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0451625889",
       "title": "The Prince",
@@ -1065,9 +1065,9 @@
   },
   {
     "pk": 77,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
-      "isbn": 1558531025,
+      "isbn": "1558531025",
       "title": "Life's Little Instruction Book (Life's Little Instruction Books (Paperback))",
       "author": "H. Jackson Brown",
       "publication_year": 1991,
@@ -1079,7 +1079,7 @@
   },
   {
     "pk": 78,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0441783589",
       "title": "Starship Troopers",
@@ -1093,7 +1093,7 @@
   },
   {
     "pk": 79,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0394895894",
       "title": "The Ruby in the Smoke (Sally Lockhart Trilogy, Book 1)",
@@ -1107,9 +1107,9 @@
   },
   {
     "pk": 80,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
-      "isbn": 1569871213,
+      "isbn": "1569871213",
       "title": "Black Beauty (Illustrated Classics)",
       "author": "Anna Sewell",
       "publication_year": 1995,
@@ -1121,7 +1121,7 @@
   },
   {
     "pk": 81,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0375410538",
       "title": "Anil's Ghost",
@@ -1135,7 +1135,7 @@
   },
   {
     "pk": 82,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0966986105",
       "title": "Prescription for Terror",
@@ -1149,7 +1149,7 @@
   },
   {
     "pk": 83,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "087113375X",
       "title": "Modern Manners: An Etiquette Book for Rude People",
@@ -1163,7 +1163,7 @@
   },
   {
     "pk": 84,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0340767936",
       "title": "Turning Thirty",
@@ -1177,7 +1177,7 @@
   },
   {
     "pk": 85,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0743403843",
       "title": "Decipher",
@@ -1191,7 +1191,7 @@
   },
   {
     "pk": 86,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0060930365",
       "title": "My First Cousin Once Removed: Money, Madness, and the Family of Robert Lowell",
@@ -1205,7 +1205,7 @@
   },
   {
     "pk": 87,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0060177586",
       "title": "Standing Firm: A Vice-Presidential Memoir",
@@ -1219,7 +1219,7 @@
   },
   {
     "pk": 88,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0071416331",
       "title": "Team Bush : Leadership Lessons from the Bush White House",
@@ -1233,7 +1233,7 @@
   },
   {
     "pk": 89,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0375509038",
       "title": "The Right Man : The Surprise Presidency of George W. Bush",
@@ -1247,7 +1247,7 @@
   },
   {
     "pk": 90,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0553062042",
       "title": "Daybreakers Louis Lamour Collection",
@@ -1261,7 +1261,7 @@
   },
   {
     "pk": 91,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0316769487",
       "title": "The Catcher in the Rye",
@@ -1275,9 +1275,9 @@
   },
   {
     "pk": 92,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
-      "isbn": 8445071408,
+      "isbn": "8445071408",
       "title": "El Senor De Los Anillos: LA Comunidad Del Anillo (Lord of the Rings (Spanish))",
       "author": "J. R. R. Tolkien",
       "publication_year": 2001,
@@ -1289,9 +1289,9 @@
   },
   {
     "pk": 93,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
-      "isbn": 8445071769,
+      "isbn": "8445071769",
       "title": "El Senor De Los Anillos: Las DOS Torres (Lord of the Rings (Paperback))",
       "author": "J. R. R. Tolkien",
       "publication_year": 2001,
@@ -1303,9 +1303,9 @@
   },
   {
     "pk": 94,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
-      "isbn": 8445071777,
+      "isbn": "8445071777",
       "title": "El Senor De Los Anillos: El Retorno Del Rey (Tolkien, J. R. R. Lord of the Rings. 3.)",
       "author": "J. R. R. Tolkien",
       "publication_year": 2001,
@@ -1317,7 +1317,7 @@
   },
   {
     "pk": 95,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0679429220",
       "title": "Midnight in the Garden of Good and Evil: A Savannah Story",
@@ -1331,7 +1331,7 @@
   },
   {
     "pk": 96,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0671867156",
       "title": "Pretend You Don't See Her",
@@ -1345,7 +1345,7 @@
   },
   {
     "pk": 97,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0312252617",
       "title": "Fast Women",
@@ -1359,7 +1359,7 @@
   },
   {
     "pk": 98,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0312261594",
       "title": "Female Intelligence",
@@ -1373,7 +1373,7 @@
   },
   {
     "pk": 99,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0316748641",
       "title": "Pasquale's Nose: Idle Days in an Italian Town",
@@ -1387,7 +1387,7 @@
   },
   {
     "pk": 100,
-    "model": "bookProfile.book",
+    "model": "bookProfile.Book",
     "fields": {
       "isbn": "0316973742",
       "title": "The Gospel of Judas: A Novel",
