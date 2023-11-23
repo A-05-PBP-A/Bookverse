@@ -17,7 +17,6 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('review', models.TextField()),
                 ('rating', models.IntegerField()),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
             ],
         ),
     ]
