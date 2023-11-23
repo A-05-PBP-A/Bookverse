@@ -9,7 +9,6 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('bookProfile', '0006_review_book'),
     ]
 
     operations = [

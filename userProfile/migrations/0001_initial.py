@@ -10,8 +10,6 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('bookProfile', '0012_auto_20231029_1607'),
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
