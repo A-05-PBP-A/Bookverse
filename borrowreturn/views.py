@@ -17,8 +17,8 @@ def borrow_book(request):
     if form.is_valid() and request.method == "POST":
         book = Book.objects.get(pk=request.POST.get('book'))
         now = timezone.now()
-        # mencari semua buku yang belum dikembalikan dan melebihi return_date
-        overdue_books = Borrowing.objects.filter(is_returned=False, return_date__lt=now)
+        # mencari semua buku yang belum dikembalikan oleh user dan melebihi return_date
+        overdue_books = Borrowing.objects.filter(user = request.user, is_returned=False, return_date__lt=now)
         # Cek apakah buku ini sudah dipinjam oleh user dan belum dikembalikan
         existing_borrowing = Borrowing.objects.filter(user=request.user, book=book, is_returned=False)
         if existing_borrowing.exists():
@@ -68,6 +68,6 @@ def return_borrowing(request, borrowing_id):
     
 def filter_borrowings(request):
     keyword = request.GET.get('keyword', '')
-    filtered_books = Borrowing.objects.filter(book_title__icontains=keyword, is_returned=False)
+    filtered_books = Borrowing.objects.filter(book_title__icontains=keyword, is_returned=False, user=request.user)
    
     return HttpResponse(serializers.serialize('json', filtered_books))
