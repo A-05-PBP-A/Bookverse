@@ -4,11 +4,11 @@
 
 <style>
     .show-content {
-    list-style: none; 
-    display: flex;    
-    padding: 0;
-    justify-content: space-between; 
-    text-align: left;     
+        list-style: none; 
+        display: flex;    
+        padding: 0;
+        justify-content: space-between; 
+        text-align: left;     
     }
 
     .show-content li {
@@ -62,6 +62,32 @@
         margin: 0 auto;
         text-align: center;
     }
+
+    .book-container {
+        margin-bottom: 10px; /* Adjust as needed */
+    }
+
+    .book-wrapper {
+        display: flex;
+        flex-direction: column; /* Stack elements vertically */
+        border: 1px solid #ccc; /* Border for the book container */
+        max-width: 300px; /* Set a maximum width for the container */
+    }
+
+    .book-image {
+        width: 100%; /* Take up the full width of the container */
+        height: auto;
+    }
+
+    .book-title {
+        font-size: 16px; /* Adjust as needed */
+        /* You can add more styling as needed */
+        padding: 5px; /* Add padding for better visual appearance */
+        white-space: nowrap; /* Prevent title from wrapping to the next line */
+        overflow: hidden; /* Hide overflowing content */
+        text-overflow: ellipsis; /* Display an ellipsis (...) to indicate overflow */
+    }
+
 </style>
 
 <div class="user-img">
@@ -80,31 +106,46 @@
 <nav>
     <ul class="show-content">
         <li><a href="#" id="booksHistory">Books History</a>
-            {% if user_instance.bookHistory.all %}
-                <ul>
-                    {% for book in user_instance.bookHistory.all %}
-                        <li>{{ book.title }}</li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <div class="empty">
-                    <h7>No books in history.</h7>
-                </div>
-            {% endif %}
+            <div class="book-section">
+                {% if history %}
+                    <ul class="book-grid">
+                        {% for book in history %}
+                            <li class="book-container">
+                                <div class="book-wrapper">
+                                    <img src="{{ book.image_url_l }}" class="book-image">
+                                    <p class="book-title">{{ book.book_title }}</p>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <div class="empty">
+                        <p>You haven't borrowed any books yet.</p>
+                    </div>
+                {% endif %}
+            </div>
         </li>
-        <li><a href="#" id="borrowedBooks">Borrowed Books</a>
-            {% if user_instance.borrowedBooks.all %}
-                <ul>
-                    {% for book in user_instance.borrowedBooks.all %}
-                        <li>{{ book.title }}</li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <div class="empty">
-                    <h7>No books you have borrowed.</h7>
+        <li>
+            <a href="#" id="borrowedBooks">Borrowed Books</a>
+                <div class="book-section">
+                    {% if borrowed %}
+                        <ul class="book-grid">
+                            {% for book in borrowed %}
+                                <li class="book-container">
+                                    <div class="book-wrapper">
+                                        <img src="{{ book.image_url_l }}" class="book-image">
+                                        <p class="book-title">{{ book.book_title }}</p>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <div class="empty">
+                            <p>You haven't borrowed any books yet.</p>
+                        </div>
+                    {% endif %}
                 </div>
-            {% endif %}
-        </li>
+        </li>        
         <li><a href="#" id="favoriteBooks">Favorite Books</a>
             {% if user_instance.favoriteBooks.all %}
                 <ul>
