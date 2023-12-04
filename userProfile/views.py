@@ -5,13 +5,20 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from userProfile.forms import ChangePasswordForm
 from django.contrib.auth.forms import UserChangeForm
+from borrowreturn.models import Borrowing
+from userProfile.models import UserHistory
 
 
 # Create your views here.
 @login_required(login_url='authentication:login_user')
 def show_user_profile(request):
+    borrowed = Borrowing.objects.filter(user=request.user, is_returned = False)
+    history = UserHistory.objects.filter(user=request.user)
+
     context = {
         'name': request.user.username,
+        'borrowed': borrowed,
+        'history' : history,
     }
     return render(request, "userProfile.html", context)
 

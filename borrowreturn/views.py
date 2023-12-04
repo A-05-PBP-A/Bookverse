@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from django.utils import timezone
+from userProfile.models import Pengguna, UserHistory
+from userProfile.forms import bookHistoryForm
 
 @login_required(login_url='/login/')
 def borrow_book(request):
@@ -48,7 +50,7 @@ def show_borrowing(request):
         'items': items
     }
     return render(request, "show_borrowing.html", context)
-
+    
 def get_book_by_id(request, book_id):
     data = Book.objects.filter(pk=book_id)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
@@ -59,9 +61,21 @@ def get_user_borrowing(request):
 
 @csrf_exempt
 def return_borrowing(request, borrowing_id):
+    formHistory = bookHistoryForm(None)
     if request.method == "PATCH":
         borrowing = Borrowing.objects.get(id= borrowing_id)
         borrowing.is_returned = True
+        book = borrowing.book
+        existing_History = UserHistory.objects.filter(user=request.user, book=book)
+        if not existing_History.exists():
+            bookHistory = formHistory.save(commit=False)
+            bookHistory.user = request.user
+            bookHistory.book = book
+            bookHistory.book_title = bookHistory.book.title
+            bookHistory.image_url_l = bookHistory.book.image_url_l
+            bookHistory.reference_id = bookHistory.book.pk
+            bookHistory.save()
+            
         borrowing.real_return_date = timezone.now()
         borrowing.save()
         return HttpResponse(b"OK", status=200)
