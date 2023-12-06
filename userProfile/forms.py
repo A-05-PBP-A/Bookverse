@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.models import User
-from userProfile.models import Pengguna,UserHistory
+from userProfile.models import Pengguna,UserHistory,UserFav
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
@@ -19,6 +19,11 @@ class UserProfileForm(forms.ModelForm):
 class bookHistoryForm(forms.ModelForm):
     class Meta:
         model = UserHistory
+        fields = []
+
+class bookFavForm(forms.ModelForm):
+    class Meta:
+        model = UserFav
         fields = []
 
 class ChangePasswordForm(forms.Form):

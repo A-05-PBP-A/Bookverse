@@ -114,6 +114,8 @@
                                 <div class="book-wrapper">
                                     <img src="{{ book.image_url_l }}" class="book-image">
                                     <p class="book-title">{{ book.book_title }}</p>
+                                    <!-- Add the button to add the book to favorites -->
+                                    <button class="btn btn-success" onclick="addToFavorites('{{ book.id }}')">Add to Favorites</button>
                                 </div>
                             </li>
                         {% endfor %}
@@ -147,17 +149,24 @@
                 </div>
         </li>        
         <li><a href="#" id="favoriteBooks">Favorite Books</a>
-            {% if user_instance.favoriteBooks.all %}
-                <ul>
-                    {% for book in user_instance.favoriteBooks.all %}
-                        <li>{{ book.title }}</li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <div class="empty">
-                    <h7>No favorite books.</h7>
-                </div>
-            {% endif %}
+            <div class="book-section">
+                {% if favorite %}
+                    <ul class="book-grid">
+                        {% for book in favorite %}
+                            <li class="book-container">
+                                <div class="book-wrapper">
+                                    <img src="{{ book.image_url_l }}" class="book-image">
+                                    <p class="book-title">{{ book.book_title }}</p>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <div class="empty">
+                        <p>You haven't add any book to favorite.</p>
+                    </div>
+                {% endif %}
+            </div>
         </li>
         <li><a href="#" id="reviewHistory">Reviews History</a>
             {% if user_instance.reviewsHistory.all %}
@@ -176,6 +185,33 @@
 </nav>
 
 <script>
+    async function getFavorite() {
+        return fetch("{% url 'userProfile:get_user_favorite' %}").then((res) => res.json())
+    }
+
+    async function addToFavorites(bookId) {
+        try {
+            // Send a POST request to add the book to favorites
+            const response = await fetch(`/add_to_favorites/${bookId}/`, {
+                method: "POST",
+            });
+
+            if (response.ok) {
+                location.reload();
+                // Trigger a click event on the "Favorite Books" list item to navigate to that section
+                const favoriteBooksNavItem = document.getElementById('favoriteBooks');
+                if (favoriteBooksNavItem) {
+                    favoriteBooksNavItem.click();
+                }
+            } else {
+                // Handle the case where the book couldn't be added to favorites
+                console.error('Failed to add to favorites. Server returned:', response.status);
+            }
+        } catch (error) {
+            console.error('Error adding to favorites:', error);
+        }
+    }
+
     const listItems = document.querySelectorAll('.show-content > li');
 
     listItems.forEach((listItem) => {

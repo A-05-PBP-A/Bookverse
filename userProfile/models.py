@@ -17,7 +17,11 @@ class UserHistory(models.Model):
 
 class UserFav(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, null = True)
     favoriteBooks = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='favorite_books', blank=True, null=True)
+    book_title = models.CharField(max_length=255, null= True, blank = True)
+    image_url_l = models.URLField(null= True, blank = True)
+    reference_id = models.IntegerField(null= True, blank = True)
 
 class UserReviews(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
