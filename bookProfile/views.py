@@ -28,6 +28,10 @@ def get_books(request):
     data = Book.objects.all()
     return HttpResponse(serializers.serialize("json",data), content_type="application/json")
 
+def get_book_by_id(request, book_id):
+    data = Book.objects.get(pk=book_id)
+    return HttpResponse(serializers.serialize("json",[data]), content_type="application/json")
+
 def get_review_json(request, book_id):
     book = get_object_or_404(Book, pk=book_id) 
     reviews = Review.objects.filter(book=book) 
