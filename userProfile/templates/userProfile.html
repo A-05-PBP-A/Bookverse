@@ -91,15 +91,15 @@
 </style>
 
 <div class="user-img">
-    <img src="{% if user_uploaded_image %}{{ user_uploaded_image }}{% else %}https://github.com/A-05-PBP-A/Bookverse/assets/137851158/862f73b2-2a11-42a9-b155-6528cc280cd4{% endif %}" id="photo">
+    <img src="{% if image %}{{ image }}{% else %}https://github.com/A-05-PBP-A/Bookverse/assets/137851158/862f73b2-2a11-42a9-b155-6528cc280cd4{% endif %}" id="photo">
     <br>
     <h3>{{ name }}</h3>
-    {% if user_instance.bio %}
-        <p>{{ user_instance.bio }}</p>
+    {% if bio %}
+        <p>{{ bio }}</p>
     {% endif %}
 </div>
 
-<a href="{% url 'userProfile:show_edit_profile' %}">
+<a href="{% url 'userProfile:edit_profile' %}">
     <button class="editProfile-button">Edit Profile</button>
 </a>
 

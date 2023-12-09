@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from django.utils import timezone
-from userProfile.models import Pengguna, UserHistory
+from userProfile.models import UserHistory
 from userProfile.forms import bookHistoryForm
 
 @login_required(login_url='/login/')
