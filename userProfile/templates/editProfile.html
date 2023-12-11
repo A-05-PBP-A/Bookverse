@@ -86,7 +86,39 @@
         border: 1px solid rgb(173, 172, 172, 0.801);
         display: flex;
         align-items: center;
+        
+    }
+
+    .change-pw-container {
+        margin: 0;
+        text-align: center;
+        display: flex;
+        align-items: center;
         justify-content: center;
+    }
+
+    /* Style for the custom upload button */
+    .custom-upload-btn {
+        cursor: pointer;
+        background-color: #3498db; 
+        color: #fff; 
+        padding: 10px 15px;
+        border-radius: 5px;
+        display: inline-block;
+        transition: background-color 0.3s ease;
+    }
+
+    .custom-upload-btn:hover {
+        background-color: #2980b9; 
+    }
+
+    /* Style to hide the default file input button */
+    input[type="file"] {
+        display: none;
+    }
+
+    .hide-messages + div {
+        display: none;
     }
 </style>
 
@@ -96,31 +128,35 @@
     </button>
 </a>
 
-<div class="user-img">
-    <img src="{% if user_uploaded_image %}{{ user_uploaded_image }}{% else %}https://github.com/A-05-PBP-A/Bookverse/assets/137851158/862f73b2-2a11-42a9-b155-6528cc280cd4{% endif %}" id="photo" alt="idk">
-    <label for="file" id="uploadbtn"><i class='fas fa-camera'></i></label>
-    <input type="file" id="file">
+<div class="form-container">
+    <form method="POST" action="{% url 'userProfile:edit_profile' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="user-img">
+            <img src="{% if image %}{{ image }}{% else %}https://github.com/A-05-PBP-A/Bookverse/assets/137851158/862f73b2-2a11-42a9-b155-6528cc280cd4{% endif %}" id="photo">
+            {{ formProfileDetails.image }}
+            <label for="{{ formProfileDetails.image.id_for_label }}" id="uploadbtn" class="custom-upload-btn">
+                <i class="fas fa-camera"></i>
+            </label>
+            {% if image %}
+                <button type="submit" name="remove_profile_picture">Remove Profile Picture</button>
+            {% endif %}
+        </div>
+        <br>
+        <label for="username_input" class="col-form-label">Username:</label>
+        {{ formUser.username }}
+        <br>
+        <label for="bio_input" class="col-form-label">Bio:</label>
+        {{ formProfileDetails.bio }}
+        <button type="submit" name="remove_bio">Remove Bio</button>
+        <br>
+        <button class="saveButton" type="submit">Save Changes</button>
+    </form>
 </div>
 
-<div class="form-container">
-    <form method="POST" enctype="multipart/form-data">
-        <div class="Username">
-            <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="{{ user.username }}">
-        </div>
-
-        <div class="Bio">
-            <input class="form-control" id="inputBio" type="text" placeholder="Enter your bio" value="{% if user.bio %}{{ user.bio }}{% else %}bio{% endif %}">
-        </div>
-
-        {% csrf_token %}
-
-        <button class="changePasswordButton" type="submit">Change Password</button>
-        <br>
-
-        <label class="warning" for="saveButton">Please save before you leave or any changes will not be saved</label>
-        <br>
-        <button id="saveButton" class="saveButton" type="submit">Save changes</button>
-    </form>
+<div class="change-pw-container">
+    <a href="{% url 'userProfile:change_password' %}">
+        <button class="changePasswordButton">Change Password</button>
+    </a>
 </div>
 
 <script>
@@ -128,8 +164,7 @@
     const img = document.querySelector('#photo');
     const file = document.querySelector('#file');
     const profileForm = document.querySelector('form');
-    const saveButton = document.querySelector('#saveButton');
-    const saveWarning = document.querySelector('.warning');
+    const saveButton = document.querySelector('.saveButton');
 
     let unsavedChanges = false; // Track unsaved changes
 
@@ -154,19 +189,18 @@
 
             formData.append('additional_field', 'additional_value');
 
-            $.ajax({
-                url: profileForm.getAttribute('action'),
+            fetch(profileForm.getAttribute('action'), {
                 method: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    console.log('Changes saved successfully');
-                    saveWarning.style.display = 'none';
-                },
-                error: function (error) {
-                    console.error('Error saving changes');
-                }
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Changes saved successfully', data);
+                // Optionally handle success response
+            })
+            .catch(error => {
+                console.error('Error saving changes', error);
+                // Optionally handle error
             });
         }
     });
