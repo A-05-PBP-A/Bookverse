@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('authentication.urls')),
     path('', include('userProfile.urls')),
     path('', include('borrowreturn.urls')),
+    path('', include('flutterauth.urls')),
 ]
 
 if settings.DEBUG:

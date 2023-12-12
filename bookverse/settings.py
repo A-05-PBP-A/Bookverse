@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'borrowreturn',
     'daftar_buku',
     'userProfile',
+    'flutterauth',
     'corsheaders',
 ]
 
