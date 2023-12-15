@@ -55,6 +55,7 @@ def get_book_by_id(request, book_id):
     data = Book.objects.filter(pk=book_id)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
+#untuk halaman borrowing flutter
 def get_user_borrowing(request):
     items = Borrowing.objects.filter(user=request.user, is_returned = False)
     return HttpResponse(serializers.serialize('json', items))
@@ -85,3 +86,4 @@ def filter_borrowings(request):
     filtered_books = Borrowing.objects.filter(book_title__icontains=keyword, is_returned=False, user=request.user)
    
     return HttpResponse(serializers.serialize('json', filtered_books))
+
