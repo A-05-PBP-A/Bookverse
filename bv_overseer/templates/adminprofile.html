@@ -21,15 +21,14 @@
             background-color: lightgrey;
             border: 4px solid darkblue;
             border-radius: 50%;
-            width: 150px; /* Adjust the width to your desired size */
-            height: 150px; /* Adjust the height to your desired size */
+            width: 150px;
+            height: 150px;
             margin: 0 auto;
             margin-top: 50px;
             overflow: hidden;
             position: relative;
         }
 
-        /* Styles for the profile image (user silhouette) */
         .profile-image {
             background-color: grey;
             max-width: 100%;
@@ -38,29 +37,27 @@
             object-fit: cover;
         }
 
-        /* Styles for the circular head */
         .profile-image::before {
             content: "";
             position: absolute;
-            top: 15%; /* Adjust the top position to center vertically */
-            left: 25%; /* Adjust the left position to center horizontally */
+            top: 15%;
+            left: 25%;
             width: 50%;
             height: 50%;
             border-radius: 50%;
-            background-color: darkgray; /* Change to a darker grey color */
+            background-color: darkgray;
         }
 
-        /* Styles for the rounded-off square body */
         .profile-image::after {
             content: "";
             position: absolute;
-            top: 70%; /* Position it below the head */
-            bottom: 10%; /* Adjust the bottom position to center vertically */
-            left: 10%; /* Adjust the left position to center horizontally */
+            top: 70%;
+            bottom: 10%;
+            left: 10%;
             width: 80%;
             height: 40%;
             border-radius: 0 0 15px 15px;
-            background-color: darkgrey; /* Change to a darker grey color */
+            background-color: darkgrey;
         }
 
         .profile-name {
@@ -75,43 +72,41 @@
 
         .box {
             background-color: rgb(241, 241, 241);
-            border: 2px solid; /* Add an outline */
+            border: 2px solid;
             padding: 20px;
             margin: 10px;
-            border-radius: 10px; /* Add rounded corners */
+            border-radius: 10px;
         }
         .box-1 {
-            border-color: red; /* Red outline for the first box */
+            border-color: red;
         }
         .box-2 {
-            border-color: blue; /* Blue outline for the second box */
+            border-color: blue;
         }
         .box-3 {
-            border-color: green; /* Green outline for the third box */
-        }
-        /* Style for the table container */
-        .table-container {
-            border: 1px solid blueviolet; /* Add a border inside the box */
-            padding: 10px; /* Add padding for even spacing */
-            overflow: auto; /* Add scroll if the content overflows */
+            border-color: green;
         }
 
-        /* Style for the centered table */
+        .table-container {
+            border: 1px solid blueviolet;
+            padding: 10px;
+            overflow: auto;
+        }
+
         .centered-table {
-            width: 100%; /* Table takes full width of the container */
-            border-collapse: collapse; /* Collapse borders to avoid double borders */
+            width: 100%;
+            border-collapse: collapse;
             background-color: white;
         }
 
         .centered-table th, .centered-table td {
-            border: 1px solid blueviolet; /* Add borders to table cells */
-            padding: 5px; /* Add padding for even spacing within cells */
+            border: 1px solid blueviolet;
+            padding: 5px;
         }
 
-        /* Style the table headers if needed */
         .centered-table th {
             background-color: lightpink;
-            border: 1px solid blueviolet; /* Add borders to table cells */
+            border: 1px solid blueviolet;
             font-weight: bold;
             color: white;
         }
@@ -177,7 +172,12 @@
                 <p>List of every single user on BookVerse</p>
                 <div style="background-color: rgb(225, 255, 225); padding: 10px; display: flex; flex-wrap: wrap; border: 1px solid lightgreen;">
                     {% for user in users %}
-                        <span style="margin-right: 10px;">{{ user.username }},</span>
+                        <span style="margin-right: 10px;">{{ user.username }}
+                            <form method="POST" action="{% url 'bv_overseer:delete_user' user.id %}"></form>
+                                <button type="submit" style="background-color: green; color: white; border: 1px solid black; border-radius: 5px; padding: 5px 10px; cursor: pointer;">Delete</button>
+                            </form>
+                            ,
+                        </span>
                     {% endfor %}
                 </div>
             </div>

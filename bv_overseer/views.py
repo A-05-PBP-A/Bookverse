@@ -26,12 +26,18 @@ def add_book(request):
 
 User = get_user_model()
 
+def delete_user(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+
+    if request.method == 'POST':
+        user.delete()
+        return HttpResponseRedirect('bv_overseer:bv_overseer_view')
+
+    return render(request, 'delete_user_confirm.html', {'user': user})
+
 def delete_review(request, review_id):
-    # Get the review to delete
     review = get_object_or_404(Review, id=review_id)
     
     if request.method == 'POST':
-        # Delete the review
         review.delete()
-        # Redirect back to the admin profile page or another suitable page
         return HttpResponseRedirect(reverse('bv_overseer:bv_overseer_view'))
