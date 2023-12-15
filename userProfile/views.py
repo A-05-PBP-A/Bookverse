@@ -1,37 +1,118 @@
-from django.shortcuts import render, redirect
-from userProfile.forms import UserProfileForm
-from userProfile.models import Pengguna
+from django.shortcuts import render, redirect, get_object_or_404
+from userProfile.forms import UserProfileForm, UserProfileDetailsForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
-from userProfile.forms import ChangePasswordForm
-from django.contrib.auth.forms import UserChangeForm
+from userProfile.forms import ChangePasswordForm, bookFavForm
 from borrowreturn.models import Borrowing
-from userProfile.models import UserHistory
+from userProfile.models import UserHistory, UserFav, ProfileDetails
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
+from django.urls import reverse
 
 
 # Create your views here.
-@login_required(login_url='authentication:login_user')
 def show_user_profile(request):
-    borrowed = Borrowing.objects.filter(user=request.user, is_returned = False)
+    # Check if ProfileDetails instance exists for the current user
+    profile_details_queryset = ProfileDetails.objects.filter(user=request.user)
+
+    if profile_details_queryset.exists():
+        profile_details = profile_details_queryset.last()  # Use the last instance
+    else:
+        # Create a new ProfileDetails instance if none exists
+        profile_details = ProfileDetails.objects.create(user=request.user)
+
+    borrowed = Borrowing.objects.filter(user=request.user, is_returned=False)
     history = UserHistory.objects.filter(user=request.user)
+    favorite = UserFav.objects.filter(user=request.user)
 
     context = {
         'name': request.user.username,
         'borrowed': borrowed,
-        'history' : history,
+        'history': history,
+        'favorite': favorite,
+        'bio': profile_details.bio,
+        'image': profile_details.image.url if profile_details.image else None,
     }
     return render(request, "userProfile.html", context)
 
 @login_required(login_url='authentication:login_user')
-def show_edit_profile(request):
+def edit_profile(request):
+    user_instance = request.user
+    profile_details_instances = ProfileDetails.objects.filter(user=user_instance)
+
+    # Choose the last instance if it exists, otherwise create a new one
+    profile_details_instance = profile_details_instances.last() or ProfileDetails.objects.create(user=user_instance)
+
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            return redirect('show_user_profile')
+        formUser = UserProfileForm(request.POST, instance=user_instance)
+        formProfileDetails = UserProfileDetailsForm(request.POST, request.FILES, instance=profile_details_instance)
+
+        if 'remove_profile_picture' in request.POST:
+            # Handle removing profile picture
+            profile_details_instance.image = None
+            profile_details_instance.save()
+            # auto refresh in the same page
+            return redirect('userProfile:edit_profile')
+
+        if 'remove_bio' in request.POST:
+            # Handle almost removing bio
+            profile_details_instance.bio = ''
+            profile_details_instance.save()
+            # auto refresh in the same page
+            return redirect('userProfile:edit_profile')
+
+        if formUser.is_valid() and formProfileDetails.is_valid():
+            user_data_changed = formUser.data != formUser.initial
+
+            if user_data_changed:
+                formUser.save()
+
+            profile_details_instance.bio = formProfileDetails.cleaned_data['bio']
+            # Kalau user sudah upload profile picture
+            if profile_details_instance.image is not None:
+                profile_details_instance.image = formProfileDetails.cleaned_data['image']
+            profile_details_instance.save()
+
+            # in django is different from regular python the two if must be met to save changes
+            return redirect('userProfile:show_user_profile')
+
     else:
-        form = UserProfileForm(instance=request.user)
-    return render(request, 'editProfile.html', {'form': form})
+        formUser = UserProfileForm(instance=user_instance)
+        formProfileDetails = UserProfileDetailsForm(instance=profile_details_instance)
+        
+
+    context = {
+        'formUser': formUser,
+        'formProfileDetails': formProfileDetails,
+        'image': profile_details_instance.image.url if profile_details_instance.image else None,
+    }
+
+    return render(request, 'editProfile.html', context)
+
+@csrf_exempt
+def add_to_favorites(request, book_id):
+    if request.method == 'POST':
+        book = UserHistory.objects.get(id=book_id).book
+        form = bookFavForm(request.POST)
+        
+        if form.is_valid():
+            if not UserFav.objects.filter(user=request.user, book=book).exists():
+                favBook = form.save(commit=False)
+                favBook.user = request.user
+                favBook.book = book
+                favBook.book_title = favBook.book.title
+                favBook.image_url_l = favBook.book.image_url_l
+                favBook.reference_id = favBook.book.pk
+                favBook.save()
+
+    return HttpResponse(b"OK", status=200)
+      
+
+def get_user_favorite(request):
+    items = UserFav.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', items))
 
 def change_password(request):
     if request.method == 'POST':
@@ -55,4 +136,4 @@ def change_password(request):
     else:
         form = ChangePasswordForm()
 
-    return render(request, 'change_password.html', {'form': form})
+    return render(request, 'changePassword.html', {'form': form})

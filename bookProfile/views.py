@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from random import sample
 from django.contrib.auth.decorators import login_required
+import json
 
 # Create your views here.
 @login_required(login_url='/login/')
@@ -27,6 +28,10 @@ def show_review(request, book_id):
 def get_books(request):
     data = Book.objects.all()
     return HttpResponse(serializers.serialize("json",data), content_type="application/json")
+
+def get_book_by_id(request, book_id):
+    data = Book.objects.get(pk=book_id)
+    return HttpResponse(serializers.serialize("json",[data]), content_type="application/json")
 
 def get_review_json(request, book_id):
     book = get_object_or_404(Book, pk=book_id) 
@@ -50,6 +55,26 @@ def add_review_ajax(request):
         return HttpResponse(b"CREATED", status=201)
 
     return HttpResponseNotFound()
+
+@csrf_exempt
+def create_review_flutter(request):
+    if request.method == 'POST':
+        
+        data = json.loads(request.body)
+        book_id = int(data["book_id"])
+        new_review = Review.objects.create(
+            user = request.user,
+            name = request.user.username,
+            book = get_object_or_404(Book, pk=book_id),
+            rating = int(data["rating"]),
+            review = data["review"],
+        )
+
+        new_review.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
 
 def show_review_json(request):
     data = Review.objects.all()

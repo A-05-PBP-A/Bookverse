@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from django.utils import timezone
-from userProfile.models import Pengguna, UserHistory
+from userProfile.models import UserHistory
 from userProfile.forms import bookHistoryForm
 
 @login_required(login_url='/login/')
@@ -67,7 +67,10 @@ def return_borrowing(request, borrowing_id):
         borrowing = Borrowing.objects.get(id= borrowing_id)
         borrowing.is_returned = True
         book = borrowing.book
+        
         existing_History = UserHistory.objects.filter(user=request.user, book=book)
+
+        #untuk menambah ke history setelah di return
         if not existing_History.exists():
             bookHistory = formHistory.save(commit=False)
             bookHistory.user = request.user
