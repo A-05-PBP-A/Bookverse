@@ -4,36 +4,55 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import logout as auth_logout, login as auth_login, authenticate
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
+from userProfile.models import ProfileDetails
+
+from django.http import JsonResponse
 
 @csrf_exempt
 def login(request):
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(username=username, password=password)
+
     if user is not None:
         if user.is_active:
             auth_login(request, user)
-            # Status login sukses.
-            return JsonResponse({
-                "id": user.id,
-                "username": user.username,
+
+            profile_details_queryset = ProfileDetails.objects.filter(user=request.user)
+
+            if profile_details_queryset.exists():
+                profile_details = profile_details_queryset.last()  # Use the last instance
+            else:
+                # Create a new ProfileDetails instance if none exists
+                profile_details = ProfileDetails.objects.create(user=request.user)
+
+            # Return relevant user information including ProfileDetails
+            response_data = {
                 "status": True,
-                "message": "Login sukses!"
-                # Tambahkan data lainnya jika ingin mengirim data ke Flutter.
-            }, status=200)
+                "message": "Login sukses!",
+                "user": {
+                    "id": user.id,
+                    "username": user.username,
+                },
+                "profile_details": {
+                    "bio": profile_details.bio,
+                    "image": profile_details.image.url if profile_details.image else None,
+                },
+            }
+
+            return JsonResponse(response_data, status=200)
         else:
             return JsonResponse({
                 "status": False,
                 "message": "Login gagal, akun dinonaktifkan."
             }, status=401)
-
     else:
         return JsonResponse({
             "status": False,
             "message": "Login gagal, periksa kembali email atau kata sandi."
         }, status=401)
-
+            
+    
 @csrf_exempt
 def logout(request):
     username = request.user.username
