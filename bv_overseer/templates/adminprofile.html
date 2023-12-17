@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6e6fa;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .profile-container {
+            background-color: lightgrey;
+            border: 4px solid darkblue;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            margin-top: 50px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-image {
+            background-color: grey;
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile-image::before {
+            content: "";
+            position: absolute;
+            top: 15%;
+            left: 25%;
+            width: 50%;
+            height: 50%;
+            border-radius: 50%;
+            background-color: darkgray;
+        }
+
+        .profile-image::after {
+            content: "";
+            position: absolute;
+            top: 70%;
+            bottom: 10%;
+            left: 10%;
+            width: 80%;
+            height: 40%;
+            border-radius: 0 0 15px 15px;
+            background-color: darkgrey;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        
+        .profile-description {
+            font-size: 25px;
+            margin: 20px 0;
+        }
+
+        .box {
+            background-color: rgb(241, 241, 241);
+            border: 2px solid;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+        }
+        .box-1 {
+            border-color: red;
+        }
+        .box-2 {
+            border-color: blue;
+        }
+        .box-3 {
+            border-color: green;
+        }
+
+        .table-container {
+            border: 1px solid blueviolet;
+            padding: 10px;
+            overflow: auto;
+        }
+
+        .centered-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        .centered-table th, .centered-table td {
+            border: 1px solid blueviolet;
+            padding: 5px;
+        }
+
+        .centered-table th {
+            background-color: lightpink;
+            border: 1px solid blueviolet;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-image"></div>
+    </div>
+    <h1 class="profile-name">{{ request.user.username }}</h1>
+    <h1 class="profile-description">BookVerse Admin</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-3">
+            <div class="box box-1">
+                <h2>Buku</h2>
+                <p>Add or Delete books from the library inventory</p>
+                <a href="{% url 'bv_overseer:add_book' %}" class="btn btn-primary">Add Book</a>
+                <a href="{% url 'bv_overseer:delete_book' 0 %}" class="btn btn-danger">Delete Book</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="box box-2">
+                <h2>Review</h2>
+                <p>List of every single review submitted by a user</p>
+                <table class="centered-table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Book</th>
+                            <th>Rating</th>
+                            <th>Review</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for review in reviews %}
+                            <tr>
+                                <td>
+                                    {% for user in users %}
+                                        {% if user.id == review.user_id %}
+                                            {{ user.username }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>{{ review.book }}</td>
+                                <td>{{ review.rating }}</td>
+                                <td>{{ review.review }}</td>
+                                <td>
+                                    <form method="POST" action="{% url 'bv_overseer:delete_review' review.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>        
+        <div class="col-md-3">
+            <div class="box box-3">
+                <h2>User</h2>
+                <p>List of every single user on BookVerse</p>
+                <div style="background-color: rgb(225, 255, 225); padding: 10px; display: flex; flex-wrap: wrap; border: 1px solid lightgreen;">
+                    {% for user in users %}
+                        <span style="margin-right: 10px;">{{ user.username }}
+                            ,
+                        </span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+{% endblock content %}

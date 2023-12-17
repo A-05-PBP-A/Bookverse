@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'userProfile',
     'flutterauth',
     'corsheaders',
+    'bv_overseer',
 ]
 
 MIDDLEWARE = [
