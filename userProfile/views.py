@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, redirect, get_object_or_404
 from userProfile.forms import UserProfileForm, UserProfileDetailsForm
 from django.contrib.auth.decorators import login_required
@@ -10,6 +11,9 @@ from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.urls import reverse
+from django.http import JsonResponse
+from bookProfile.models import Book
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -108,11 +112,56 @@ def add_to_favorites(request, book_id):
                 favBook.save()
 
     return HttpResponse(b"OK", status=200)
+
+@csrf_exempt
+def add_to_favorites_flutter(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        bookId = data['bookId']
+
+        existing_favorite = existing_favorite = UserFav.objects.filter(user=request.user, book__id=bookId)
+        if existing_favorite.exists():
+            existing_favorite = UserFav.objects.filter(user=request.user, book__id=bookId).last()
+            if existing_favorite:
+                # Book already exists in favorites
+                return JsonResponse({"status": "error", "message": "Book already in favorites"}, status=400)
+            
+        fav_book = Book.objects.get(id=bookId)
+
+        new_fav_book = UserFav.objects.create(
+            user = request.user,
+            book = fav_book,
+            book_title = fav_book.title,
+            image_url_l = fav_book.image_url_l,
+            reference_id = bookId,
+        )
+
+        new_fav_book.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+
+@csrf_exempt
+def delete_book(request, book_id):
+    if request.method == 'POST':
+        # Perform the book deletion in the UserFav model
+        fav_book = Book.objects.get(id=book_id)
+        user_fav = UserFav.objects.get(book=fav_book)  # Assuming you have authentication
+        user_fav.delete()
+        return JsonResponse({'message': 'Book deleted successfully'})
+    else:
+        return JsonResponse({'message': 'Failed to delete book'}, status=400)
       
 
 def get_user_favorite(request):
     items = UserFav.objects.filter(user=request.user)
-    return HttpResponse(serializers.serialize('json', items))
+    return HttpResponse(serializers.serialize('json', items), content_type="application/json")
+
+def get_user_favorite_flutter(request, username):
+    user = User.objects.get(username=username)
+    items = UserFav.objects.filter(user=user)
+    return HttpResponse(serializers.serialize('json', items), content_type="application/json")
 
 def change_password(request):
     if request.method == 'POST':

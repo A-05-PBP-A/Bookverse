@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Book</title>
+    <style>
+        body {
+            background-color: #e6e6fa;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            background-color: #f5f5f5;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px; /* Add margin for space */
+        }
+        .container * {
+            font-size: 1.2em;
+        }
+        .container h2 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        .form-container {
+            text-align: center;
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+        }
+        .form-container label {
+            display: flex; /* Use flexbox for aligning items */
+            align-items: center; /* Align items vertically */
+            justify-content: center; /* Center content horizontally */
+            margin: 10px 0;
+        }
+        .form-container label > span {
+            flex: 1; /* Expand to fill available space */
+        }
+        .form-container input[type="text"],
+        .form-container input[type="number"],
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container button,
+        .form-container a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Add a Book</h2>
+        <div class="form-container">
+            <form method="post">
+                {% csrf_token %}
+                
+                <label for="{{ form.isbn.id_for_label }}">ISBN:</label>
+                {{ form.isbn }}
+                
+                <label for="{{ form.title.id_for_label }}">Title:</label>
+                {{ form.title }}
+                
+                <label for="{{ form.author.id_for_label }}">Author:</label>
+                {{ form.author }}
+                
+                <label for="{{ form.publication_year.id_for_label }}">Publication Year:</label>
+                {{ form.publication_year }}
+                
+                <label for="{{ form.publisher.id_for_label }}">Publisher:</label>
+                {{ form.publisher }}
+                
+                <label for="{{ form.image_url_s.id_for_label }}">Image URL (Small):</label>
+                {{ form.image_url_s }}
+                
+                <label for="{{ form.image_url_m.id_for_label }}">Image URL (Medium):</label>
+                {{ form.image_url_m }}
+                
+                <label for="{{ form.image_url_l.id_for_label }}">Image URL (Large):</label>
+                {{ form.image_url_l }}
+                
+                <button type="submit" class="btn btn-primary">Add Book</button>
+                <a href="{% url 'bv_overseer:bv_overseer_view' %}" class="btn">Go Back</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
