@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'userProfile',
     'flutterauth',
     'corsheaders',
+    'bv_overseer',
 ]
 
 MIDDLEWARE = [
@@ -155,4 +156,4 @@ CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SAMESITE = 'None'
-CSRF_TRUSTED_ORIGINS = ["https://bookverse-a05-tk.pbp.cs.ui.ac.id"] 
+CSRF_TRUSTED_ORIGINS = ["https://*.pbp.cs.ui.ac.id"] 
