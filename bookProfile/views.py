@@ -59,15 +59,19 @@ def add_review_ajax(request):
 @csrf_exempt
 def create_review_flutter(request):
     if request.method == 'POST':
-        
         data = json.loads(request.body)
         book_id = int(data["book_id"])
+
+        existing_review = Review.objects.filter(user=request.user, book__id=book_id).first()
+        if existing_review:
+            return JsonResponse({"status": "error", "message": "You have already reviewed this book"}, status=400)
+
         new_review = Review.objects.create(
-            user = request.user,
-            name = request.user.username,
-            book = get_object_or_404(Book, pk=book_id),
-            rating = int(data["rating"]),
-            review = data["review"],
+            user=request.user,
+            name=request.user.username,
+            book=get_object_or_404(Book, pk=book_id),
+            rating=int(data["rating"]),
+            review=data["review"],
         )
 
         new_review.save()
