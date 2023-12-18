@@ -10,7 +10,7 @@ urlpatterns = [
     path('book-data/<int:book_id>/', get_book_by_id, name='get_book_by_id'),
     path('return-borrowing/<int:borrowing_id>/', return_borrowing, name='return_borrowing'),
     path('filter-borrowings/', filter_borrowings, name='filter_borrowings'),
-    path('return-flutter/', return_borrowing_flutter, name='return_borrowing_flutter'),
+    path('return-flutter/<str:username>/', return_borrowing_flutter, name='return_borrowing_flutter'),
     path('borrow-flutter/', borrow_book_flutter, name='borrow_book_flutter'),
     path('get-book-cover/', get_book_url, name='get_book_url')
 ]

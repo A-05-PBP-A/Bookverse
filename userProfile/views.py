@@ -119,12 +119,10 @@ def add_to_favorites_flutter(request):
         data = json.loads(request.body)
         bookId = data['bookId']
 
-        existing_favorite = existing_favorite = UserFav.objects.filter(user=request.user, book__id=bookId)
+        existing_favorite = existing_favorite = UserFav.objects.filter(user=request.user, book_id=bookId)
         if existing_favorite.exists():
-            existing_favorite = UserFav.objects.filter(user=request.user, book__id=bookId).last()
-            if existing_favorite:
-                # Book already exists in favorites
-                return JsonResponse({"status": "error", "message": "Book already in favorites"}, status=400)
+            # Book already exists in favorites
+            return JsonResponse({"status": "error", "message": "Book already in favorites"}, status=400)
             
         fav_book = Book.objects.get(id=bookId)
 
@@ -158,9 +156,18 @@ def get_user_favorite(request):
     items = UserFav.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', items), content_type="application/json")
 
+def get_user_history(request):
+    items = UserHistory.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', items), content_type="application/json")
+
 def get_user_favorite_flutter(request, username):
     user = User.objects.get(username=username)
     items = UserFav.objects.filter(user=user)
+    return HttpResponse(serializers.serialize('json', items), content_type="application/json")
+
+def get_user_history_flutter(request, username):
+    user = User.objects.get(username=username)
+    items = UserHistory.objects.filter(user=user)
     return HttpResponse(serializers.serialize('json', items), content_type="application/json")
 
 def change_password(request):

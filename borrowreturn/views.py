@@ -12,6 +12,7 @@ from django.utils import timezone
 from userProfile.models import UserHistory
 from userProfile.forms import bookHistoryForm
 import json
+from django.contrib.auth.models import User
 
 @login_required(login_url='/login/')
 def borrow_book(request):
@@ -93,26 +94,27 @@ def filter_borrowings(request):
     return HttpResponse(serializers.serialize('json', filtered_books))
 
 @csrf_exempt
-def return_borrowing_flutter(request):
-    formHistory = bookHistoryForm(None)
+def return_borrowing_flutter(request, username):
     if request.method == 'POST':
         data = json.loads(request.body)
+        user = User.objects.get(username=username)
         borrowing_id = int(data["id"])
         borrowing = Borrowing.objects.get(id = borrowing_id)
         book = borrowing.book
         borrowing.is_returned = True
 
-        # existing_History = UserHistory.objects.filter(user=request.user, book=book)
+        existing_history = UserHistory.objects.filter(user=user, book=book)
+        if not existing_history.exists():
+            # Book not exist in history
+            new_book_history = UserHistory.objects.create(
+                user = user,
+                book = book,
+                book_title = book.title,
+                image_url_l = book.image_url_l,
+                reference_id = borrowing_id,
+            )
 
-        # #untuk menambah ke history setelah di return
-        # if not existing_History.exists():
-        #     bookHistory = formHistory.save(commit=False)
-        #     bookHistory.user = request.user
-        #     bookHistory.book = book
-        #     bookHistory.book_title = bookHistory.book.title
-        #     bookHistory.image_url_l = bookHistory.book.image_url_l
-        #     bookHistory.reference_id = bookHistory.book.pk
-        #     bookHistory.save()
+            new_book_history.save()
             
         borrowing.real_return_date = timezone.now()
         borrowing.save()
