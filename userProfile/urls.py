@@ -1,7 +1,7 @@
 from django.urls import path
 from userProfile.views import show_user_profile, edit_profile, add_to_favorites, get_user_favorite, change_password
 from userProfile.views import add_to_favorites_flutter, get_user_favorite_flutter, delete_book,get_user_history_flutter
-from userProfile.views import get_user_history
+from userProfile.views import get_user_history, edit_profile_flutter
 
 app_name = 'userProfile'
 
@@ -16,4 +16,5 @@ urlpatterns = [
     path('delete_bookFav/<int:book_id>/', delete_book, name='delete_book'),
     path('book_history_flutter/<str:username>/',get_user_history_flutter, name='get_user_history_flutter'),
     path('book_history/',get_user_history, name='get_user_history'),
+    path('edit-profile-flutter/<str:username>/', edit_profile_flutter, name='edit_profile_flutter'),
 ]
