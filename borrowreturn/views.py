@@ -160,3 +160,10 @@ def get_book_url(request):
         book_url = book.image_url_l
 
         return JsonResponse({"url": book_url}, status = 200)
+
+@csrf_exempt
+def filter_borrowings_flutter(request):
+    keyword = request.GET.get('search', '')
+    filtered_borrowing = Borrowing.objects.filter(book_title__icontains=keyword, is_returned=False, user=request.user)
+   
+    return HttpResponse(serializers.serialize('json', filtered_borrowing),content_type="application/json")

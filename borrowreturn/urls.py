@@ -1,5 +1,5 @@
 from django.urls import path
-from borrowreturn.views import borrow_book, get_book_by_id, show_borrowing, get_user_borrowing, return_borrowing, filter_borrowings, return_borrowing_flutter, borrow_book_flutter, get_book_url
+from borrowreturn.views import *
 
 app_name = 'borrowreturn'
 
@@ -12,5 +12,6 @@ urlpatterns = [
     path('filter-borrowings/', filter_borrowings, name='filter_borrowings'),
     path('return-flutter/<str:username>/', return_borrowing_flutter, name='return_borrowing_flutter'),
     path('borrow-flutter/', borrow_book_flutter, name='borrow_book_flutter'),
-    path('get-book-cover/', get_book_url, name='get_book_url')
+    path('get-book-cover/', get_book_url, name='get_book_url'),
+    path('filter-flutter/', filter_borrowings_flutter, name='filter_borrowings_flutter')
 ]
