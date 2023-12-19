@@ -80,6 +80,16 @@ def create_review_flutter(request):
     else:
         return JsonResponse({"status": "error"}, status=401)
 
+@csrf_exempt
+def delete_review(request, review_id):
+    if request.method == 'DELETE':
+        review = get_object_or_404(Review, pk=review_id, user=request.user)
+        review.delete()
+
+        return JsonResponse({"status": "success", "message": "Review deleted successfully"}, status=200)
+    else:
+        return JsonResponse({"status": "error", "message": "Invalid request method"}, status=400)
+
 def show_review_json(request):
     data = Review.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
