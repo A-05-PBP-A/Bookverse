@@ -95,6 +95,48 @@ def edit_profile(request):
 
     return render(request, 'editProfile.html', context)
 
+@login_required(login_url='flutterauth:login')
+@csrf_exempt
+def edit_profile_flutter(request,username):
+    data = json.loads(request.body)
+    user = User.objects.get(username=username)
+    new_username = data['username_baru']
+    new_bio = data['bio']
+    oldProfileDetails = ProfileDetails.objects.filter(user=user)
+
+    
+    if request.method == 'POST':
+        #agar tidak selalu save periksa apakah username berubah
+        if username != new_username:
+            #Periksa username taken or not
+            if User.objects.filter(username=new_username).exists():
+                return JsonResponse({"status": "username taken"}, status=401)
+            user.username = new_username
+            user.save()
+        
+        #agar tidak selalu save periksa apakah bio berubah
+        if oldProfileDetails.exists():
+            oldProfileDetails = oldProfileDetails.last()
+
+            if oldProfileDetails.bio != new_bio:
+                profile_details = ProfileDetails.objects.create(
+                    user=user,
+                    bio = new_bio,
+                )
+                
+                profile_details.save()
+
+        else:
+            profile_details = ProfileDetails.objects.create(
+                user=user,
+                bio = new_bio,
+            )
+            
+            profile_details.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+        
+
 @csrf_exempt
 def add_to_favorites(request, book_id):
     if request.method == 'POST':

@@ -1,7 +1,7 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from bookProfile.models import Review, Book
-from django.contrib.auth import get_user_model   
+from django.contrib.auth import get_user_model
 from .forms import AddBookForm, DeleteBookForm
 from django.urls import reverse
 
@@ -11,6 +11,22 @@ def bv_overseer_view(request):
     context = {'reviews': reviews,
                'users': users}
     return render(request, 'adminprofile.html', context)
+
+def get_reviews_flutter(request):
+    reviews = Review.objects.all()
+    users = get_user_model().objects.all()
+    review_list = []
+
+    for review in reviews:
+        user = users.get(id=review.user_id)
+        review_list.append({
+            'username': user.username,
+            'book': review.book,
+            'rating': review.rating,
+            'review': review.review,
+        })
+
+    return JsonResponse({'reviews': review_list})
 
 def add_book(request):
     if request.method == 'POST':
@@ -43,6 +59,11 @@ def delete_book(request, book_id=None):
     return render(request, 'delete_book.html', context)
 
 User = get_user_model()
+
+def get_user_flutter(request):
+    users = get_user_model().objects.all()
+    user_list = [{'username': user.username} for user in users]
+    return JsonResponse({'users': user_list})
 
 def delete_review(request, review_id):
     review = get_object_or_404(Review, id=review_id)
